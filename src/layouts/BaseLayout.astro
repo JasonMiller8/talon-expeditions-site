@@ -57,7 +57,7 @@ const graph = [organization, website, ...(breadcrumbSchema?[breadcrumbSchema]:[]
     <meta name="twitter:description" content={description} />
     {absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
     <meta name="theme-color" content="#080706" />
-    <script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@graph':graph})}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@graph':graph})}></script>
     <title>{title}</title>
   </head>
   <body>
