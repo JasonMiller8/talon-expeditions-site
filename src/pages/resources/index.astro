@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import PlanningCTA from '../../components/PlanningCTA.astro';
+import { articles, resourceCategories } from '../../data/articles';
+import { images } from '../../data/assets';
+const breadcrumbs=[{label:'Resources',href:'/resources/'}];
+---
+<BaseLayout title="Group Travel Resources & Planning Guides | Talon Expeditions" description="Practical group travel planning guides, trip preparation resources, learn-to travel advice, trekking guidance, organizer resources, and cultural travel planning from Talon Expeditions." image={images.packing} breadcrumbs={breadcrumbs}>
+  <section class="hub-hero" style={`background-image:url('${images.packing}')`}><div class="shell"><Breadcrumbs items={breadcrumbs}/><p class="eyebrow">Talon Expeditions Resources</p><h1 class="section-title">Useful answers for people planning real trips.</h1><p class="lead">Guidance for organizers and travelers who need to make decisions about group size, activity level, preparation, support, booking structure, and the practical work behind better travel.</p></div></section>
+  <section class="section"><div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Explore by topic</p><h2 class="section-title">Planning knowledge organized around the questions people actually ask.</h2></div><p class="section-copy">These resource hubs support the commercial pages with deeper explanations, comparisons, preparation guidance, and organizer-focused answers.</p></div><div class="category-card-grid">{resourceCategories.map((category)=><a class="category-card" href={`/resources/${category.slug}/`}><div class="category-card-image" style={`background-image:url('${category.image}')`}></div><div class="category-card-body"><h3>{category.title}</h3><p>{category.description}</p><span>Explore resources →</span></div></a>)}</div></div></section>
+  <section class="section soft-section"><div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Latest planning guides</p><h2 class="section-title">Start with the issue you are trying to solve.</h2></div><p class="section-copy">Longer guides are written to answer the question directly, then explain the tradeoffs and next steps without padding the page with generic travel copy.</p></div><div class="editorial-grid">{articles.map((article)=><a class="article-card" href={`/guides/${article.slug}/`}><div class="article-card-image" style={`background-image:url('${article.image}')`}></div><div class="article-card-body"><span class="article-card-meta">{article.category}</span><h3>{article.title}</h3><p>{article.description}</p><time datetime={article.date}>{article.readTime}</time></div></a>)}</div></div></section>
+  <Newsletter />
+  <PlanningCTA title="A guide can answer the general question. Your group still deserves a specific plan." />
+</BaseLayout>

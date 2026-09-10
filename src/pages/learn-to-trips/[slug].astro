@@ -1,0 +1,7 @@
+---
+import LandingPage from '../../components/LandingPage.astro';
+import { learnToPages } from '../../data/landing';
+export function getStaticPaths(){ return learnToPages.map((page)=>({params:{slug:page.slug},props:{page}})); }
+const { page } = Astro.props;
+---
+<LandingPage page={page} parentLabel="Learn-To Trips" parentHref="/learn-to-trips/" />

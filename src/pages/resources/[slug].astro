@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import PlanningCTA from '../../components/PlanningCTA.astro';
+import { articles, resourceCategories } from '../../data/articles';
+export function getStaticPaths(){ return resourceCategories.map((category)=>({params:{slug:category.slug},props:{category}})); }
+const { category } = Astro.props;
+const matching=articles.filter((article)=>article.categorySlug===category.slug);
+const breadcrumbs=[{label:'Resources',href:'/resources/'},{label:category.title,href:Astro.url.pathname}];
+---
+<BaseLayout title={`${category.title} Resources | Talon Expeditions`} description={category.description} image={category.image} breadcrumbs={breadcrumbs}>
+  <section class="page-hero" style={`background-image:url('${category.image}')`}><div class="shell"><Breadcrumbs items={breadcrumbs}/><p class="eyebrow">Resource hub</p><h1 class="section-title">{category.title}</h1><p>{category.description}</p></div></section>
+  <section class="section"><div class="shell"><div class="answer-panel"><h2>What you will find here</h2><p>This hub collects practical planning guidance around {category.title.toLowerCase()}. Articles are written to answer a real question first, then explain the decisions, constraints, and next steps that matter when the advice is applied to an actual group trip.</p></div><div class="editorial-grid" style="margin-top:40px">{matching.length ? matching.map((article)=><a class="article-card" href={`/guides/${article.slug}/`}><div class="article-card-image" style={`background-image:url('${article.image}')`}></div><div class="article-card-body"><span class="article-card-meta">{article.category}</span><h3>{article.title}</h3><p>{article.description}</p><time datetime={article.date}>{article.readTime}</time></div></a>) : <div class="donor-card"><span class="card-index">01</span><h3>More guides are being added</h3><p>This hub is part of the permanent Talon resource architecture. Additional question-led guides will be published as the library grows.</p></div>}</div></div></section>
+  <section class="section soft-section"><div class="shell"><p class="eyebrow">Related resource hubs</p><h2 class="section-title" style="margin-bottom:30px">Keep following the planning question.</h2><div class="related-grid">{resourceCategories.filter((item)=>item.slug!==category.slug).slice(0,3).map((item)=><a class="related-card" href={`/resources/${item.slug}/`}><small>Resource hub</small><strong>{item.title}</strong></a>)}</div></div></section>
+  <Newsletter />
+  <PlanningCTA />
+</BaseLayout>

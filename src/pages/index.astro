@@ -1,151 +1,79 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQList from '../components/FAQList.astro';
+import Newsletter from '../components/Newsletter.astro';
+import PlanningCTA from '../components/PlanningCTA.astro';
 import { images } from '../data/assets';
+import { audienceLinks, coreExperienceCards, trustSignals } from '../data/site';
+import { articles } from '../data/articles';
 
-const experiences = [
-  { title:'Trekking & Active Travel', kicker:'Mountains, trails, movement', copy:'Supported journeys for groups that want to do more than simply visit.', image:images.trekking, href:'/trekking-active-travel/' },
-  { title:'Learn-To Trips', kicker:'Travel built around a skill', copy:'Dive, sail, ski, climb, surf, or build wilderness capability together.', image:images.surf, href:'/learn-to-trips/' },
-  { title:'Culture & Cruise', kicker:'Culture, coastlines, connection', copy:'Curated group travel with room for discovery, comfort, and shared experiences.', image:images.city, href:'/cultural-cruise-travel/' }
+const moments=[
+  {label:'Trekking & mountain travel',image:images.trekking,href:'/trekking-active-travel/'},
+  {label:'Dive & water experiences',image:images.water,href:'/learn-to-trips/scuba-diving/'},
+  {label:'Wildlife & nature',image:images.wildlife,href:'/experiences/'},
+  {label:'Culture & cities',image:images.culture,href:'/cultural-cruise-travel/'},
+  {label:'Coast & islands',image:images.coast,href:'/cultural-cruise-travel/'},
+  {label:'Active rest',image:images.lake,href:'/trekking-active-travel/beginner-active-trips/'}
 ];
-
-const moments = [
-  {label:'Wildlife & nature', image:images.wildlife},
-  {label:'Water & dive travel', image:images.water},
-  {label:'Road & overland journeys', image:images.road},
-  {label:'Coastal escapes', image:images.coast},
-  {label:'Cultural discovery', image:images.culture},
-  {label:'Active rest', image:images.lake}
+const services=[
+  ['Trip strategy & itinerary design','Turn a rough idea into a realistic route, pace, duration, comfort level, and support model built around the group.'],
+  ['Flights, arrivals & transfers','Create an arrival plan that works when travelers begin in different cities and the group still needs to meet in one place.'],
+  ['Accommodation & rooming','Coordinate hotels, lodges, resorts, cabins, huts, cruise cabins, or other lodging with the group’s rooming and comfort needs in mind.'],
+  ['Activities & local specialists','Connect appropriate guides, instructors, destination operators, tickets, excursions, and activity providers to the itinerary.'],
+  ['Organizer support','Give the group leader clearer information, milestones, participant communication, and a workable process for moving from interest to departure.'],
+  ['Traveler preparation','Clarify documentation, equipment, fitness, activity prerequisites, insurance questions, packing, and final travel information before departure.']
 ];
+const homeFaq=[
+  {q:'What does Talon Expeditions do?',a:'Talon Expeditions plans and coordinates supported group travel for private groups, clubs, communities, businesses, and selected individual departures. We focus on active travel, trekking, learn-to programs, cultural and cruise travel, and other experience-led trips where the organizer benefits from more support than a collection of separate bookings.'},
+  {q:'Do I need a complete itinerary before contacting you?',a:'No. Many planning conversations begin with only a group, a destination idea, an activity, a season, or the kind of experience the organizer wants to create. The early planning process is designed to turn that starting point into a viable trip structure.'},
+  {q:'Can travelers join from different cities?',a:'Yes. Many groups are geographically distributed. The air and arrival plan can use a common gateway, a destination meeting point, coordinated transfer windows, or another structure appropriate to the itinerary.'},
+  {q:'Are Talon Expeditions trips only for very experienced outdoor travelers?',a:'No. Some trips are demanding, but active travel can also be beginner-friendly, comfort-forward, cultural, social, or built around learning a skill. Difficulty and prerequisites should be described clearly for each trip rather than hidden behind the word adventure.'},
+  {q:'Can Talon organize a private trip only for our group?',a:'Yes. Private group travel is a central part of the Talon model. Clubs, communities, teams, studios, families, friends, and organizers can plan around their own group, dates, interests, and support needs.'},
+  {q:'Do you also offer trips individuals can join?',a:'Selected joinable departures may be published when the itinerary, dates, pricing, booking terms, and participant requirements are ready. Travelers who already have their own group do not need to wait for a public departure.'}
+];
+const featuredArticles=articles.slice(0,6);
 ---
-<BaseLayout title="Talon Expeditions | Fully Supported Group Travel" description="Talon Expeditions plans fully supported private group travel, active journeys, learn-to trips, trekking, cultural travel and cruises worldwide." image={images.hero}>
+<BaseLayout title="Talon Expeditions | Private Group, Active & Experience-Led Travel" description="Talon Expeditions is a U.S.-based group travel planning company for private groups, clubs, communities, businesses, active journeys, learn-to trips, trekking, cultural travel and cruises worldwide." image={images.hero} schema={{'@type':'TravelAgency',name:'Talon Expeditions',url:Astro.site?.toString(),areaServed:'Worldwide',description:'U.S.-based group travel planning for private groups, active travel, learn-to trips, trekking, cultural journeys and hosted cruise groups.'}}>
   <section class="hero" style={`background-image:url('${images.hero}')`}>
     <div class="shell hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow">Group travel, shaped around your people</p>
+        <p class="eyebrow">U.S.-based group travel planning · Worldwide destinations</p>
         <h1 class="display">Travel farther.<br/>Together.</h1>
-        <p class="lead">Fully supported journeys for clubs, communities, businesses, private groups, and travelers who want more from the trip than a generic package.</p>
-        <div class="hero-actions">
-          <a class="button" href="/contact/">Start Planning</a>
-          <a class="button button-ghost" href="#experiences">Explore Experiences</a>
-        </div>
-        <div class="hero-proof">
-          <span>Worldwide travel</span>
-          <span>Group-first planning</span>
-          <span>Support before departure</span>
-        </div>
+        <p class="lead">Talon Expeditions plans private group travel, active journeys, learn-to trips, trekking, cultural programs, and hosted cruise travel for people who want the experience shaped around their group instead of fitting into a generic package.</p>
+        <div class="hero-actions"><a class="button" href="/plan-a-trip/">Start Planning</a><a class="button button-ghost" href="/experiences/">Explore Experiences</a></div>
+        <div class="hero-proof"><span>Private groups</span><span>Worldwide planning</span><span>Organizer support</span><span>Traveler readiness</span></div>
       </div>
-      <form class="planner-card" action="/contact/" method="get">
-        <p class="eyebrow">Start with the idea</p>
-        <h2>Plan a group trip</h2>
-        <p>You do not need a finished itinerary. Tell us what your group is trying to experience.</p>
-        <div class="planner-grid">
-          <div class="field"><label for="group">Group type</label><select id="group" name="group"><option>Club or community</option><option>Private group</option><option>Business or team</option><option>Studio or wellness group</option><option>Other</option></select></div>
-          <div class="field"><label for="style">Trip style</label><select id="style" name="style"><option>Active / trekking</option><option>Learn-to / skill based</option><option>Culture / cruise</option><option>Wildlife / nature</option><option>Not sure yet</option></select></div>
-          <div class="field"><label for="size">Approximate group size</label><select id="size" name="size"><option>Under 10</option><option>10–20</option><option>20–40</option><option>40+</option><option>Still forming the group</option></select></div>
-          <button class="button" type="submit">Shape the Trip</button>
-        </div>
+      <form class="planner-card" action="/plan-a-trip/" method="get">
+        <p class="eyebrow">Start with the idea</p><h2>What are you trying to plan?</h2><p>You do not need a finished itinerary. Give us enough context to point you toward the right planning path.</p>
+        <div class="planner-grid"><div class="field"><label for="group">Group type</label><select id="group" name="group"><option>Club or community</option><option>Private group / friends</option><option>Business or team</option><option>Studio or wellness community</option><option>Social / affinity group</option><option>Individual traveler</option></select></div><div class="field"><label for="style">Trip style</label><select id="style" name="style"><option>Active / trekking</option><option>Learn-to / skill based</option><option>Culture / cruise</option><option>Wildlife / nature</option><option>Not sure yet</option></select></div><div class="field"><label for="size">Approximate group size</label><select id="size" name="size"><option>Under 10</option><option>10–20</option><option>20–40</option><option>40+</option><option>Still forming the group</option></select></div><button class="button" type="submit">Shape the Trip</button></div>
       </form>
     </div>
   </section>
 
-  <section class="intro-strip">
-    <div class="shell intro-grid">
-      <div>
-        <p class="eyebrow">More than a packaged tour</p>
-        <h2 class="section-title">Build the journey around the group, not the other way around.</h2>
-      </div>
-      <p class="section-copy">Talon Expeditions helps organizers turn an idea into a trip people can actually join. We coordinate the travel, experience structure, group readiness, and practical details so leaders can focus on the people they are bringing together.</p>
-    </div>
-  </section>
+  <section class="intro-strip"><div class="shell definition-grid"><div class="definition-sticky"><p class="eyebrow">What Talon Expeditions is</p><h2>A group travel partner for active and experience-led journeys.</h2></div><div class="definition-body"><div class="answer-panel"><h2>What does a group travel planner actually do?</h2><p>A group travel planner connects itinerary design, flights or arrival logic, accommodation, transport, local operators, activities, organizer communication, traveler information, and pre-trip preparation into one coherent plan. The value increases as the group gets larger, the itinerary becomes more specialized, or the organizer needs support beyond making reservations.</p></div><p>Talon Expeditions works with private groups, clubs, communities, businesses, studios, social groups, and selected individual travelers. We can begin with a destination, an activity, a skill people want to learn, an annual club tradition, a community the organizer wants to bring together, or simply the idea that the next trip should involve more than passive sightseeing.</p><p>The common thread is not one definition of adventure. It is travel with a reason to go, clear operational support, and enough structure that the group can understand what it is joining before the trip becomes complicated.</p></div></div></section>
 
-  <section class="section-tight" id="experiences">
-    <div class="shell">
-      <div class="card-grid">
-        {experiences.map((item) => (
-          <a class="experience-card" href={item.href} style={`background-image:url('${item.image}')`}>
-            <div class="content"><span class="kicker">{item.kicker}</span><h3>{item.title}</h3><p>{item.copy}</p></div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <section class="section-tight" id="experiences"><div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Core travel formats</p><h2 class="section-title">Choose the kind of experience first. The destination can follow.</h2></div><p class="section-copy">Each travel format has its own planning logic, preparation needs, and group-fit questions. The site goes deeper than a catalog so organizers can understand the differences before selecting a route.</p></div><div class="experience-grid-4">{coreExperienceCards.map(item=><a class="experience-card" href={item.href} style={`background-image:url('${item.image}')`}><div class="content"><span class="kicker">{item.eyebrow}</span><h3>{item.title}</h3><p>{item.copy}</p></div></a>)}</div></div></section>
 
-  <section class="section dark-section">
-    <div class="shell split-dark">
-      <div>
-        <p class="eyebrow">Choose your direction</p>
-        <h2 class="section-title">Trips with a reason to go.</h2>
-        <ul class="style-list">
-          <li>Private Group Travel</li>
-          <li>Trekking & Peaks</li>
-          <li>Learn-To Trips</li>
-          <li>Wildlife & Nature</li>
-          <li>Culture & Cruise</li>
-          <li>Wellness & Active Rest</li>
-        </ul>
-      </div>
-      <div class="feature-image" style={`background-image:url('${images.wildlife}')`}>
-        <div class="feature-caption">
-          <h3>Private groups come first.</h3>
-          <p>Bring your community, club, team, friends, or members. We help turn the shared interest into a structured, supported journey.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="section dark-section"><div class="shell split-dark"><div><p class="eyebrow">Private groups come first</p><h2 class="section-title">The trip should fit the people, not an imaginary average traveler.</h2><p style="color:#aaa">A hiking club, dive community, business team, wellness studio, and social group can all travel to the same country and still need completely different itineraries. Group size, activity level, budget, rooming, origin cities, timing, social expectations, and the organizer’s role all shape the plan.</p><p style="color:#aaa">That is why we build from the group outward. It creates clearer decisions and makes it easier to explain the trip to the people who may actually join.</p><a class="button" href="/private-group-travel/">Explore Private Group Travel</a></div><div class="feature-image" style={`background-image:url('${images.group}')`}><div class="feature-caption"><h3>Start with the group you already have.</h3><p>A private trip can be built around your own dates, interests, activity level, comfort, and travel style without waiting for a public departure.</p></div></div></div></section>
 
-  <section class="section">
-    <div class="shell">
-      <p class="eyebrow">Built around support</p>
-      <h2 class="section-title">The difficult parts should feel organized.</h2>
-      <div class="value-grid">
-        <div class="value"><span class="num">01</span><h3>Organizer support</h3><p>Shape the trip, define the group, communicate the offer, and keep the planning process moving.</p></div>
-        <div class="value"><span class="num">02</span><h3>Tailored itineraries</h3><p>Build around the experience and the people instead of forcing the group into a standard departure.</p></div>
-        <div class="value"><span class="num">03</span><h3>Traveler readiness</h3><p>Help people understand what to expect, what to bring, and how to prepare for more active journeys.</p></div>
-        <div class="value"><span class="num">04</span><h3>Worldwide coordination</h3><p>Flights, lodging, activities, operators, timing, and the moving pieces that make group travel work.</p></div>
-      </div>
-    </div>
-  </section>
+  <section class="section soft-section"><div class="shell"><div class="specialty-heading"><div><p class="eyebrow">For organizers & communities</p><h2 class="section-title">Different communities need different travel structures.</h2></div><p class="section-copy">Our audience pages explain how planning changes for specific kinds of groups, including the questions that tend to affect participation and trip viability.</p></div><div class="donor-grid">{audienceLinks.map((item,index)=><a class="donor-card donor-link-card" href={item.href}><span class="card-index">{String(index+1).padStart(2,'0')}</span><h3>{item.label}</h3><p>{index===0?'Supported travel for membership organizations and communities that want a trip built around a shared interest.':index===1?'Route, difficulty, comfort, readiness, and logistics designed around people who care about the hiking itself.':index===2?'Dive and watersports travel where training, equipment, water conditions, and non-activity time all need to fit together.':index===3?'Movement, recovery, culture, and comfortable travel for studios and communities that want active rest rather than an endurance event.':index===4?'Team travel with a genuine destination purpose, clear logistics, and room for people to connect outside a forced meeting agenda.':'Hosted travel for social, alumni, cultural-interest, women’s, and affinity groups whose members want to experience a place together.'}</p><span class="text-arrow">Explore this group type →</span></a>)}</div></div></section>
 
-  <section class="section-tight">
-    <div class="shell">
-      <div class="intro-grid">
-        <div><p class="eyebrow">Experience-led travel</p><h2 class="section-title">Go for the place. Remember what you did there.</h2></div>
-        <p class="section-copy">Adventure does not have to mean extreme. A Talon trip can be demanding, relaxing, skill-building, cultural, social, or all of those at different points in the journey.</p>
-      </div>
-      <div class="mosaic">
-        {moments.map((item) => <div class="mosaic-card" style={`background-image:url('${item.image}')`}><span>{item.label}</span></div>)}
-      </div>
-    </div>
-  </section>
+  <section class="section"><div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Travel planning services</p><h2 class="section-title">A group trip is a chain of dependencies. We plan it that way.</h2></div><p class="section-copy">Flights affect transfers. Group size affects vehicles and guides. Activity level affects preparation. Rooming affects price. A good plan connects those decisions instead of treating them as unrelated bookings.</p></div><div class="donor-grid">{services.map((item,index)=><div class="donor-card"><span class="card-index">{String(index+1).padStart(2,'0')}</span><h3>{item[0]}</h3><p>{item[1]}</p></div>)}</div><div class="center-actions"><a class="button" href="/services/">See All Planning Services</a><a class="text-arrow" href="/support/">What support can include →</a></div></div></section>
 
-  <section class="organizer section" style={`background-image:url('${images.boat}')`}>
-    <div class="organizer-inner">
-      <p class="eyebrow">For organizers, leaders, and communities</p>
-      <h2 class="section-title">You bring the people. We help make the trip real.</h2>
-      <p>Start with a destination, a shared interest, a skill your group wants to learn, or simply the kind of experience you want to create. We can shape the rest with you.</p>
-      <a class="button" href="/private-group-travel/">Explore Private Group Travel</a>
-    </div>
-  </section>
+  <section class="section soft-section"><div class="shell process-wrap"><div class="process-photo" style={`background-image:url('${images.planning}')`}></div><div><p class="eyebrow">How group travel planning works</p><h2 class="section-title">Make the important decisions in the right order.</h2><p class="section-copy">The planning process begins by defining the group and purpose before committing to disconnected travel components. As the trip develops, the work shifts from concept and viability to bookings, participant information, readiness, and final coordination.</p><div class="steps"><div class="step"><strong>01 · Define the Trip</strong><span>Who is traveling, why are they going, what constraints matter, and what should the trip accomplish?</span></div><div class="step"><strong>02 · Shape the Plan</strong><span>Compare destinations, routes, accommodation, activities, operators, costs, support, and timing.</span></div><div class="step"><strong>03 · Prepare to Launch</strong><span>Turn the plan into clear information people can evaluate, then define commitments and deadlines.</span></div><div class="step"><strong>04 · Prepare Travelers</strong><span>Resolve rooming, arrivals, documents, equipment, training, provider forms, and final trip information.</span></div></div><a class="button" href="/how-it-works/">See the Full Planning Process</a></div></div></section>
 
-  <section class="section">
-    <div class="shell process-wrap">
-      <div class="process-photo" style={`background-image:url('${images.planning}')`}></div>
-      <div>
-        <p class="eyebrow">How it works</p>
-        <h2 class="section-title">From idea to departure in three clear stages.</h2>
-        <p class="section-copy">You do not need to arrive with every detail solved. Our job is to turn the initial concept into a trip your group understands and can prepare for.</p>
-        <div class="steps">
-          <div class="step"><strong>Define the Trip</strong><span>Who is traveling, what matters to them, and what kind of experience are you trying to create?</span></div>
-          <div class="step"><strong>Shape the Plan</strong><span>Build the itinerary, support level, logistics, timing, and group structure around that goal.</span></div>
-          <div class="step"><strong>Prepare to Launch</strong><span>Help organizers communicate the trip and travelers understand what comes next.</span></div>
-          <div class="step"><strong>Travel Supported</strong><span>Keep the journey coordinated while the group gets on with experiencing it.</span></div>
-        </div>
-        <a class="button" href="/contact/">Start a Planning Conversation</a>
-      </div>
-    </div>
-  </section>
+  <section class="section dark-section"><div class="shell mission-grid"><div><p class="eyebrow">Why Talon</p><h2 class="section-title">Travel should feel personal to the group and professional behind the scenes.</h2><p style="color:#aaa">We focus on the parts of travel that make a group easier to organize: explicit scope, realistic difficulty, clear responsibilities, destination-specific specialists, traveler preparation, and one planning relationship that can connect the moving pieces.</p><a class="button" href="/why-talon/">Why Groups Plan With Talon</a></div><div class="mission-stack">{trustSignals.map((item,index)=><div class="mission-card"><span class="day-label">0{index+1}</span><h3>{item.title}</h3><p>{item.copy}</p></div>)}</div></div><div class="credentials home-credentials"><div class="credential dark-credential"><strong>CLIA</strong><span>Cruise-industry infrastructure</span></div><div class="credential dark-credential"><strong>IATA</strong><span>Air-travel industry infrastructure</span></div><div class="credential dark-credential"><strong>ARC</strong><span>U.S. travel-industry infrastructure</span></div></div></section>
 
-  <section class="cta-band">
-    <div class="shell"><h2>Have a group, a destination, or just the beginning of an idea?</h2><a class="button button-secondary" href="/contact/">Plan With Talon</a></div>
-  </section>
+  <section class="section-tight"><div class="shell"><div class="intro-grid"><div><p class="eyebrow">Experience-led travel</p><h2 class="section-title">Go for the place. Remember what you did there.</h2></div><p class="section-copy">Active travel can mean a mountain objective, learning to dive, hiking between villages, paddling a coastline, wildlife travel, a hosted cruise, or simply building more movement and purpose into a cultural trip. The intensity can change without losing the idea.</p></div><div class="mosaic">{moments.map(item=><a class="mosaic-card" href={item.href} style={`background-image:url('${item.image}')`}><span>{item.label}</span></a>)}</div><div class="center-actions"><a class="button" href="/gallery/">Explore the Gallery</a><a class="text-arrow" href="/trip-examples/">See trip planning examples →</a></div></div></section>
+
+  <section class="organizer section" style={`background-image:url('${images.boat}')`}><div class="organizer-inner"><p class="eyebrow">Public departures & private departures</p><h2 class="section-title">Bring your own group or join a selected Talon departure.</h2><p>Private groups can plan around their own dates and purpose. Travelers without a group can follow selected joinable departures when complete dates, pricing, inclusions, activity level, and booking terms are published.</p><div class="hero-actions center-hero-actions"><a class="button" href="/private-group-travel/">Plan a Private Group</a><a class="button button-ghost" href="/join-a-trip/">See Joinable Trips</a></div></div></section>
+
+  <section class="section"><div class="shell definition-grid"><div class="definition-sticky"><p class="eyebrow">Traveler readiness</p><h2>Preparation is part of the trip, especially when the travel is active or specialized.</h2></div><div class="definition-body"><div class="answer-panel"><h2>What does traveler preparation include?</h2><p>Preparation can include passports and entry requirements, insurance, rooming, arrival instructions, activity prerequisites, equipment, packing, fitness expectations, training guidance, provider forms, emergency information, and the final operational details travelers need before departure. The exact requirements depend on the trip.</p></div><p>For a conventional city weekend, preparation may be light. For a trek, dive program, ski trip, or remote itinerary, readiness can become one of the most important parts of the planning process. Travelers need enough information to make an informed decision before booking and enough time to prepare after confirmation.</p><p>Our resource library goes deeper into those questions so organizers do not have to recreate the same explanations for every departure.</p><a class="button" href="/resources/trip-preparation/">Trip Preparation Resources</a></div></div></section>
+
+  <section class="section soft-section"><div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Planning resources</p><h2 class="section-title">Answer the question before asking someone to contact sales.</h2></div><p class="section-copy">Our guides are written for organizers and travelers who are still evaluating format, difficulty, preparation, group size, support, or whether outside planning help is worthwhile.</p></div><div class="editorial-grid">{featuredArticles.map(article=><a class="article-card" href={`/guides/${article.slug}/`}><div class="article-card-image" style={`background-image:url('${article.image}')`}></div><div class="article-card-body"><span class="article-card-meta">{article.category}</span><h3>{article.title}</h3><p>{article.description}</p><time datetime={article.date}>{article.readTime}</time></div></a>)}</div><div class="center-actions"><a class="button" href="/resources/">Browse All Resources</a></div></div></section>
+
+  <section class="section"><div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Frequently asked questions</p><h2 class="section-title">Straight answers to the questions that usually come first.</h2></div><p class="section-copy">Trip-specific supplier rules, pricing, cancellation terms, and entry requirements are confirmed in the actual proposal and booking documents. These answers explain the general Talon model.</p></div><FAQList items={homeFaq} openFirst={true}/><div class="center-actions"><a class="button" href="/faq/">Read the Full FAQ</a></div></div></section>
+
+  <Newsletter />
+  <PlanningCTA title="Have a group, a destination, or just the beginning of an idea?" copy="Start with what you know. Talon can help turn the initial concept into a realistic group-travel plan with clearer logistics, support, and traveler preparation." />
 </BaseLayout>

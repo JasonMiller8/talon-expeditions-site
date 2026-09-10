@@ -1,0 +1,7 @@
+---
+import LandingPage from '../../components/LandingPage.astro';
+import { activePages } from '../../data/landing';
+export function getStaticPaths(){ return activePages.map((page)=>({params:{slug:page.slug},props:{page}})); }
+const { page } = Astro.props;
+---
+<LandingPage page={page} parentLabel="Trekking & Active Travel" parentHref="/trekking-active-travel/" />

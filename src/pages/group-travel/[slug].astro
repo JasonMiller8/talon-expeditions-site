@@ -1,0 +1,7 @@
+---
+import LandingPage from '../../components/LandingPage.astro';
+import { groupTravelPages } from '../../data/landing';
+export function getStaticPaths(){ return groupTravelPages.map((page)=>({params:{slug:page.slug},props:{page}})); }
+const { page } = Astro.props;
+---
+<LandingPage page={page} parentLabel="Group Travel" parentHref="/group-travel/" />

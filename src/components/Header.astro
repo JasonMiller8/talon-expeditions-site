@@ -1,31 +1,47 @@
 ---
 import Brand from './Brand.astro';
+import { primaryNav, experienceLinks, audienceLinks, resourceLinks } from '../data/site';
 ---
 <header class="site-header" data-header>
+  <div class="topline">
+    <div class="shell topline-inner">
+      <span>U.S.-based group travel planning · Worldwide destinations</span>
+      <div><a href="tel:+13057096099">+1 305 709 6099</a><a href="mailto:sales@talonexpeditions.com">sales@talonexpeditions.com</a></div>
+    </div>
+  </div>
   <div class="shell header-inner">
-    <Brand />
+    <Brand variant="light" />
     <nav class="desktop-nav" aria-label="Primary">
-      <a href="/experiences/">Experiences</a>
-      <a href="/private-group-travel/">Private Groups</a>
-      <a href="/learn-to-trips/">Learn-To Trips</a>
-      <a href="/trekking-active-travel/">Active Travel</a>
-      <a href="/cultural-cruise-travel/">Culture & Cruise</a>
+      <div class="nav-item has-menu">
+        <a href="/experiences/">Experiences</a>
+        <div class="mega-menu mega-menu--wide">
+          <div><p class="mega-label">Ways to travel</p>{experienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}</div>
+          <div><p class="mega-label">For groups</p>{audienceLinks.slice(0,4).map((item)=><a href={item.href}>{item.label}</a>)}</div>
+          <div class="mega-promo"><span>Start with the group, the activity, or the destination.</span><strong>You do not need a finished itinerary.</strong><a class="button button-small" href="/plan-a-trip/">Plan a Trip</a></div>
+        </div>
+      </div>
+      <div class="nav-item has-menu">
+        <a href="/group-travel/">Group Travel</a>
+        <div class="mega-menu">{audienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}</div>
+      </div>
+      <div class="nav-item has-menu"><a href="/join-a-trip/">Trips</a><div class="mega-menu"><a href="/join-a-trip/">Join a Trip</a><a href="/trip-examples/">Trip Planning Examples</a><a href="/services/">Planning Services</a><a href="/how-it-works/">How It Works</a></div></div>
+      <div class="nav-item has-menu">
+        <a href="/resources/">Resources</a>
+        <div class="mega-menu">{resourceLinks.map((item)=><a href={item.href}>{item.label}</a>)}<a href="/faq/">FAQs</a></div>
+      </div>
+      <a href="/why-talon/">Why Talon</a>
       <a href="/about/">About</a>
     </nav>
-    <div class="header-actions">
-      <a class="text-link" href="mailto:sales@talonexpeditions.com">Email Us</a>
-      <a class="button button-small" href="/contact/">Plan a Trip</a>
-    </div>
+    <div class="header-actions"><a class="button button-small" href="/plan-a-trip/">Plan a Trip</a></div>
     <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle><span></span><span></span></button>
   </div>
   <div class="mobile-panel" data-mobile-panel>
-    <a href="/experiences/">Experiences</a>
-    <a href="/private-group-travel/">Private Groups</a>
-    <a href="/learn-to-trips/">Learn-To Trips</a>
-    <a href="/trekking-active-travel/">Active Travel</a>
-    <a href="/cultural-cruise-travel/">Culture & Cruise</a>
-    <a href="/about/">About</a>
-    <a href="/contact/">Plan a Trip</a>
+    {primaryNav.map((item)=><a href={item.href}>{item.label}</a>)}
+    <a href="/services/">Travel Planning Services</a>
+    <a href="/how-it-works/">How It Works</a>
+    <a href="/faq/">FAQs</a>
+    <a href="/contact/">Contact</a>
+    <a class="button" href="/plan-a-trip/">Plan a Trip</a>
   </div>
 </header>
 <script>

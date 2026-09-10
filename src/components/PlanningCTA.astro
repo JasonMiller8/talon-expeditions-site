@@ -1,0 +1,10 @@
+---
+interface Props { eyebrow?:string; title?:string; copy?:string; dark?:boolean }
+const { eyebrow='Plan with Talon', title='Start with what you know. We can help shape the rest.', copy='Tell us about the group, the activity, the destination, or the kind of experience you want to create. A finished itinerary is not required.', dark=false } = Astro.props;
+---
+<section class:list={['planning-cta', dark && 'planning-cta--dark']}>
+  <div class="shell planning-cta-grid">
+    <div><p class="eyebrow">{eyebrow}</p><h2 class="section-title">{title}</h2></div>
+    <div><p>{copy}</p><div class="cta-actions"><a class="button" href="/plan-a-trip/">Plan a Trip</a><a class="text-arrow" href="/contact/">Contact Talon →</a></div></div>
+  </div>
+</section>

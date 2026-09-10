@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import FAQList from './FAQList.astro';
+import PlanningCTA from './PlanningCTA.astro';
+import type { LandingPage as PageData } from '../data/landing';
+
+interface Props { page: PageData; parentLabel:string; parentHref:string }
+const { page, parentLabel, parentHref } = Astro.props;
+const breadcrumbs=[{label:parentLabel,href:parentHref},{label:page.title,href:Astro.url.pathname}];
+const serviceSchema={
+  '@type':'Service',
+  name:page.title,
+  description:page.description,
+  provider:{'@id':`${Astro.site}#organization`},
+  areaServed:{'@type':'Place',name':'Worldwide'},
+  url:new URL(Astro.url.pathname,Astro.site).toString()
+};
+const faqSchema={'@type':'FAQPage',mainEntity:page.faqs.map((item)=>({'@type':'Question',name:item.q,acceptedAnswer:{'@type':'Answer',text:item.a}}))};
+---
+<BaseLayout title={page.metaTitle} description={page.description} image={page.hero} breadcrumbs={breadcrumbs} schema={[serviceSchema,faqSchema]}>
+  <section class="page-hero" style={`background-image:url('${page.hero}')`}>
+    <div class="shell"><Breadcrumbs items={breadcrumbs}/><p class="eyebrow">{page.eyebrow}</p><h1 class="section-title">{page.title}</h1><p>{page.description}</p></div>
+  </section>
+
+  <section class="section">
+    <div class="shell definition-grid">
+      <div class="definition-sticky"><p class="eyebrow">Direct answer</p><h2>{page.answerTitle}</h2></div>
+      <div class="definition-body"><div class="answer-panel"><p>{page.answer}</p></div><h2>{page.introTitle}</h2>{page.intro.map((p)=><p>{p}</p>)}</div>
+    </div>
+  </section>
+
+  <section class="section soft-section">
+    <div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Designed around the group</p><h2 class="section-title">Who this kind of trip is for.</h2></div><p class="section-copy">The best itinerary is not the one with the longest list of highlights. It is the one whose pace, support, cost, and experience actually fit the people being invited.</p></div><div class="two-col-list">{page.whoFor.map((item)=><div class="list-card">{item}</div>)}</div></div>
+  </section>
+
+  <section class="section">
+    <div class="shell split-copy-image">
+      <div><p class="eyebrow">What Talon can coordinate</p><h2 class="section-title">More than a list of reservations.</h2><p class="section-copy">The exact scope is defined for each trip, but these are the kinds of moving parts that can be connected into one planning process.</p><div class="check-grid">{page.included.map((item)=><span>{item}</span>)}</div><a class="button" href="/support/">See How Support Works</a></div>
+      <div class="split-image" style={`background-image:url('${page.hero}')`}></div>
+    </div>
+  </section>
+
+  <section class="section dark-section">
+    <div class="shell"><p class="eyebrow">Planning in practice</p><h2 class="section-title">The details that make the difference.</h2><div class="mission-grid" style="margin-top:38px"><div class="mission-stack">{page.sections.map((section,index)=><div class="mission-card"><span class="day-label">0{index+1}</span><h3>{section.heading}</h3></div>)}</div><div>{page.sections.map((section)=><div class="prose-section" style="border-color:#2d2926"><h2>{section.heading}</h2>{section.body.map((p)=><p style="color:#b7b2ae">{p}</p>)}</div>)}</div></div></div>
+  </section>
+
+  <section class="section">
+    <div class="shell"><div class="specialty-heading"><div><p class="eyebrow">How the planning develops</p><h2 class="section-title">A clear sequence from idea to departure.</h2></div><p class="section-copy">Group travel becomes easier to manage when decisions are made in the right order and participants receive useful information before they need to act.</p></div><div class="process-number-grid">{page.process.map((step,index)=><div class="process-number"><span>0{index+1}</span><h3>{step.title}</h3><p>{step.copy}</p></div>)}</div></div>
+  </section>
+
+  <section class="section soft-section">
+    <div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Questions before you plan</p><h2 class="section-title">What organizers and travelers usually want to know.</h2></div><p class="section-copy">Specific supplier, pricing, medical, documentation, and activity requirements are confirmed for the actual trip. These answers explain the general planning model.</p></div><FAQList items={page.faqs} openFirst={true}/></div>
+  </section>
+
+  <section class="section">
+    <div class="shell"><p class="eyebrow">Continue exploring</p><h2 class="section-title" style="margin-bottom:30px">Related planning paths.</h2><div class="related-grid">{page.related.map((item)=><a class="related-card" href={item.href}><small>Talon Expeditions</small><strong>{item.label}</strong></a>)}</div></div>
+  </section>
+
+  <PlanningCTA title="If the trip is still only an idea, that is enough to start." />
+</BaseLayout>

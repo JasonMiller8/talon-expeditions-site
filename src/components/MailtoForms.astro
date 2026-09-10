@@ -1,0 +1,19 @@
+<script>
+  document.querySelectorAll('form[data-mailto-form]').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!(form instanceof HTMLFormElement)) return;
+      const action=form.getAttribute('action') || '';
+      const address=action.replace(/^mailto:/i,'').split('?')[0];
+      if (!address) return;
+      const data=new FormData(form);
+      const subject=form.getAttribute('data-subject') || 'Talon Expeditions website inquiry';
+      const lines=[];
+      for (const [key,value] of data.entries()) {
+        if (typeof value === 'string' && value.trim()) lines.push(`${key}: ${value.trim()}`);
+      }
+      const url=`mailto:${encodeURIComponent(address)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n\n'))}`;
+      window.location.href=url;
+    });
+  });
+</script>

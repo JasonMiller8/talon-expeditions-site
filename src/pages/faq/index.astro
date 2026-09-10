@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FAQList from '../../components/FAQList.astro';
+import PlanningCTA from '../../components/PlanningCTA.astro';
+import { mainFaqGroups, faqPages } from '../../data/faqs';
+import { images } from '../../data/assets';
+const breadcrumbs=[{label:'FAQ',href:'/faq/'}];
+const all=mainFaqGroups.flatMap((g)=>g.items);
+const faqSchema={'@type':'FAQPage',mainEntity:all.map((item)=>({'@type':'Question',name:item.q,acceptedAnswer:{'@type':'Answer',text:item.a}}))};
+---
+<BaseLayout title="Talon Expeditions FAQ | Group Travel Planning Questions" description="Answers to common questions about Talon Expeditions, private group travel, active trips, learn-to travel, support, booking, preparation, and worldwide trip planning." image={images.heroAlt} breadcrumbs={breadcrumbs} schema={faqSchema}>
+  <section class="page-hero" style={`background-image:url('${images.heroAlt}')`}><div class="shell"><Breadcrumbs items={breadcrumbs}/><p class="eyebrow">Frequently asked questions</p><h1 class="section-title">Clear answers before you commit to a trip.</h1><p>Travel decisions are easier when the scope, support, responsibilities, and practical constraints are explained plainly. These answers cover the general Talon Expeditions model. Specific trip terms are confirmed in writing for each itinerary.</p></div></section>
+  <section class="section"><div class="shell"><div class="answer-panel"><h2>What is Talon Expeditions?</h2><p>Talon Expeditions is a U.S.-based group travel planning company that helps private groups, clubs, communities, businesses, and travelers organize active, skill-based, cultural, cruise, and experience-led journeys worldwide. We focus on connecting the trip design, travel logistics, organizer support, and traveler preparation into a more coherent planning process.</p></div>{mainFaqGroups.map((group)=><section class="prose-section"><div class="specialty-heading"><div><p class="eyebrow">FAQ category</p><h2 class="section-title">{group.title}</h2></div><p class="section-copy">General guidance. Supplier-specific rules, pricing, medical requirements, and booking terms may differ by trip.</p></div><FAQList items={group.items}/></section>)}</div></section>
+  <section class="section soft-section"><div class="shell"><p class="eyebrow">Deeper FAQ libraries</p><h2 class="section-title" style="margin-bottom:30px">More specific questions by planning stage.</h2><div class="related-grid">{faqPages.map((page)=><a class="related-card" href={`/faq/${page.slug}/`}><small>FAQ library</small><strong>{page.title}</strong></a>)}</div></div></section>
+  <PlanningCTA title="Still have a question that depends on the actual trip?" copy="Send us the group, destination, dates, or activity you are considering. Specific answers are easier once the real constraints are visible." />
+</BaseLayout>

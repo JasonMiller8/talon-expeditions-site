@@ -1,0 +1,18 @@
+<div class="cookie-consent" data-cookie-consent hidden>
+  <div class="cookie-copy"><strong>Your privacy choices</strong><p>We use essential browser storage for site functions. Optional analytics may be added to understand site usage and improve content. You can choose whether non-essential analytics are allowed.</p><a href="/cookies/">Cookie Policy</a></div>
+  <div class="cookie-actions"><button class="button button-ghost cookie-essential" type="button" data-cookie-choice="essential">Essential only</button><button class="button" type="button" data-cookie-choice="all">Accept all</button></div>
+</div>
+<script>
+  const key='talon-cookie-preference-v1';
+  const banner=document.querySelector('[data-cookie-consent]');
+  const existing=localStorage.getItem(key);
+  if (banner && !existing) banner.hidden=false;
+  document.querySelectorAll('[data-cookie-choice]').forEach((button)=>button.addEventListener('click',()=>{
+    const value=button.getAttribute('data-cookie-choice') || 'essential';
+    localStorage.setItem(key,value);
+    document.documentElement.dataset.cookiePreference=value;
+    if (banner) banner.hidden=true;
+    window.dispatchEvent(new CustomEvent('talon:cookie-preference',{detail:{value}}));
+  }));
+  if (existing) document.documentElement.dataset.cookiePreference=existing;
+</script>

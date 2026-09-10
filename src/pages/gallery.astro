@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PlanningCTA from '../components/PlanningCTA.astro';
+import { images } from '../data/assets';
+const breadcrumbs=[{label:'Experience Gallery',href:'/gallery/'}];
+const items=[
+  ['Trekking & mountain travel',images.trekking],['Island & coastal travel',images.coast],['Dive & marine experiences',images.water],['Wildlife & nature',images.wildlife],['Culture & cities',images.culture],['Overland journeys',images.road],['Active rest',images.lake],['Hosted coastal travel',images.boat],['Skill-based travel',images.surf],['Scenic rail & arrivals',images.train],['Cultural destinations',images.marrakech],['Mountain landscapes',images.fuji]
+];
+---
+<BaseLayout title="Experience Gallery | Talon Expeditions" description="Visual inspiration for Talon Expeditions trip styles including trekking, active travel, diving, wildlife, cultural travel, cruises, coastlines, and skill-based journeys." image={images.galleryTravel} breadcrumbs={breadcrumbs}>
+  <section class="page-hero" style={`background-image:url('${images.galleryTravel}')`}><div class="shell"><Breadcrumbs items={breadcrumbs}/><p class="eyebrow">Experience gallery</p><h1 class="section-title">A visual index of the kinds of travel we build around.</h1><p>This gallery represents the landscapes, activities, and travel styles that inform the Talon Expeditions planning approach. Individual trip pages and published trip recaps identify the specific destination, operator, and departure details that apply to a real journey.</p></div></section>
+  <section class="section"><div class="shell"><div class="gallery-grid">{items.map(([label,image])=><div class="gallery-item" style={`background-image:url('${image}')`}><span>{label}</span></div>)}</div></div></section>
+  <section class="section soft-section"><div class="shell"><div class="specialty-heading"><div><p class="eyebrow">Travel styles</p><h2 class="section-title">Use the gallery for direction, then go deeper into the trip type.</h2></div><p class="section-copy">The commercial pages explain who each format is for, what support can be included, and how the planning process changes.</p></div><div class="related-grid"><a class="related-card" href="/trekking-active-travel/"><small>Travel style</small><strong>Trekking & Active Travel</strong></a><a class="related-card" href="/learn-to-trips/"><small>Travel style</small><strong>Learn-To Trips</strong></a><a class="related-card" href="/cultural-cruise-travel/"><small>Travel style</small><strong>Cultural & Cruise Travel</strong></a></div></div></section>
+  <PlanningCTA title="See something close to the trip you have in mind?" />
+</BaseLayout>

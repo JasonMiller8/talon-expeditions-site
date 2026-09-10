@@ -1,34 +1,23 @@
 ---
 import Brand from './Brand.astro';
+import { experienceLinks, audienceLinks, resourceLinks, business } from '../data/site';
 ---
 <footer class="footer">
+  <div class="shell footer-lead">
+    <div><p class="eyebrow">Start with an idea</p><h2>Have a group, a destination, or a trip you have been talking about for years?</h2></div>
+    <div><p>Tell us what you are trying to create. We can help turn the early idea into a realistic group-travel plan.</p><a class="button" href="/plan-a-trip/">Start Planning</a></div>
+  </div>
   <div class="shell footer-grid">
-    <div class="footer-brand">
-      <Brand />
-      <p>Fully supported group travel for active, cultural, and experience-led journeys around the world.</p>
-      <p class="legal">Talon Global LLC dba Talon Expeditions</p>
-    </div>
-    <div>
-      <h2>Travel</h2>
-      <a href="/private-group-travel/">Private Group Travel</a>
-      <a href="/learn-to-trips/">Learn-To Trips</a>
-      <a href="/trekking-active-travel/">Trekking & Active</a>
-      <a href="/cultural-cruise-travel/">Cultural & Cruise</a>
-    </div>
-    <div>
-      <h2>Company</h2>
-      <a href="/about/">About</a>
-      <a href="/contact/">Contact</a>
-      <a href="mailto:sales@talonexpeditions.com">sales@talonexpeditions.com</a>
-    </div>
-    <div class="footer-cta">
-      <p class="eyebrow">Have a group in mind?</p>
-      <h2>Start with the trip you want to create.</h2>
-      <a class="button" href="/contact/">Plan with Talon</a>
-    </div>
+    <div class="footer-brand"><Brand variant="light" /><p>{business.description}</p><p class="legal">{business.legalName}</p></div>
+    <div><h3>Experiences</h3>{experienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}<a href="/services/">Travel Planning Services</a></div>
+    <div><h3>For Groups</h3>{audienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}</div>
+    <div><h3>Resources</h3>{resourceLinks.slice(0,4).map((item)=><a href={item.href}>{item.label}</a>)}<a href="/faq/">FAQs</a><a href="/gallery/">Experience Gallery</a><a href="/trip-examples/">Trip Planning Examples</a></div>
   </div>
-  <div class="shell footer-bottom">
-    <span>© {new Date().getFullYear()} Talon Expeditions</span>
-    <span>U.S.-based planning. Worldwide travel.</span>
+  <div class="shell footer-contact">
+    <div><strong>Talk with Talon</strong><a href={`mailto:${business.email}`}>{business.email}</a><a href={`tel:${business.phoneHref}`}>{business.phone}</a></div>
+    <div><strong>U.S. correspondence</strong><span>{business.address.street}<br/>{business.address.city}, {business.address.region} {business.address.postalCode}</span></div>
+    <div><strong>Company</strong><a href="/about/">About</a><a href="/why-talon/">Why Talon</a><a href="/trip-leaders-partners/">Trip Leaders & Partners</a><a href="/careers/">Careers</a></div>
+    <div><strong>Legal</strong><a href="/privacy/">Privacy</a><a href="/cookies/">Cookies</a><a href="/terms/">Terms</a></div>
   </div>
+  <div class="shell footer-bottom"><span>© {new Date().getFullYear()} Talon Expeditions</span><span>{business.tagline}</span></div>
 </footer>
