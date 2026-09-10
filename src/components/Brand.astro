@@ -1,24 +1,13 @@
 ---
 interface Props { variant?: 'light' | 'dark'; compact?: boolean }
-const { variant='light', compact=false } = Astro.props;
+const { compact=false } = Astro.props;
 ---
-<a class:list={['brand-logo', `brand-logo--${variant}`, compact && 'brand-logo--compact']} href="/" aria-label="Talon Expeditions home">
-  <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-  <span class="brand-type"><strong>TALON</strong><span>EXPEDITIONS</span></span>
+<a class:list={['brand-logo', compact && 'brand-logo--compact']} href="/" aria-label="Talon Expeditions home">
+  <img src="/assets/talon-expeditions-logo-light.png" alt="Talon Expeditions" width="900" height="267" />
 </a>
 <style>
-  .brand-logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;line-height:1;width:max-content}
-  .brand-mark{position:relative;width:30px;height:30px;display:inline-block;transform:rotate(-8deg)}
-  .brand-mark i{position:absolute;display:block;border-radius:100% 0 100% 0;background:#ff5a3d;transform-origin:100% 100%}
-  .brand-mark i:nth-child(1){width:25px;height:8px;left:0;top:11px;transform:rotate(-28deg)}
-  .brand-mark i:nth-child(2){width:22px;height:7px;left:5px;top:5px;transform:rotate(-48deg)}
-  .brand-mark i:nth-child(3){width:20px;height:6px;left:8px;top:17px;transform:rotate(18deg);background:#ff8848}
-  .brand-type{display:flex;flex-direction:column;letter-spacing:.04em}
-  .brand-type strong{font-size:23px;font-weight:800;letter-spacing:.16em}
-  .brand-type span{font-size:10px;font-weight:700;letter-spacing:.34em;margin-top:3px}
-  .brand-logo--light{color:#fff}
-  .brand-logo--dark{color:#090807}
-  .brand-logo--compact .brand-type strong{font-size:20px}
-  .brand-logo--compact .brand-mark{width:26px;height:26px;transform:scale(.9) rotate(-8deg)}
-  @media(max-width:680px){.brand-type strong{font-size:20px}.brand-type span{font-size:9px}.brand-mark{transform:scale(.9) rotate(-8deg)}}
+  .brand-logo{display:inline-flex;align-items:center;text-decoration:none;width:min(245px,28vw)}
+  .brand-logo img{display:block;width:100%;height:auto}
+  .brand-logo--compact{width:min(210px,28vw)}
+  @media(max-width:680px){.brand-logo{width:190px}.brand-logo--compact{width:170px}}
 </style>
