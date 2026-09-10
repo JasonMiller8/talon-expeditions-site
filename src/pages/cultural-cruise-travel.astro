@@ -19,7 +19,7 @@ const faqs=[
   {q:'Can travelers have free time on a private group trip?',a:'Yes. Free time is often essential. A well-designed itinerary protects important shared experiences while leaving room for rest, independent meals, shopping, museums, local exploration, or simply time away from the group.'},
   {q:'Can a cultural trip be built for older active travelers?',a:'Yes. The planning should focus on mobility, pace, comfort, activity tolerance, rooming, transfers, and the actual traveler profile rather than using age as a substitute for those details.'}
 ];
-const serviceSchema={'@type':'Service',name:'Cultural and Cruise Group Travel',description:'Private cultural group travel and hosted cruise planning with itinerary design, group coordination, pre- and post-travel, local experiences, and organizer support.',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name':'Worldwide'}};
+const serviceSchema={'@type':'Service',name:'Cultural and Cruise Group Travel',description:'Private cultural group travel and hosted cruise planning with itinerary design, group coordination, pre- and post-travel, local experiences, and organizer support.',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name:'Worldwide'}};
 const faqSchema={'@type':'FAQPage',mainEntity:faqs.map(i=>({'@type':'Question',name:i.q,acceptedAnswer:{'@type':'Answer',text:i.a}}))};
 ---
 <BaseLayout title="Cultural & Cruise Group Travel | Talon Expeditions" description="Private cultural group travel and hosted cruise planning for clubs, communities, social groups, businesses, and private travelers, with worldwide coordination and flexible pacing." image={images.culture} breadcrumbs={breadcrumbs} schema={[serviceSchema,faqSchema]}>
