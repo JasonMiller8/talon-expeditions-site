@@ -1,55 +1,46 @@
 ---
 import Brand from './Brand.astro';
-import { primaryNav, experienceLinks, audienceLinks, resourceLinks } from '../data/site';
+import { experienceLinks, audienceLinks, resourceLinks } from '../data/site';
 ---
 <header class="site-header" data-header>
-  <div class="topline">
-    <div class="shell topline-inner">
-      <span>U.S.-based group travel planning · Worldwide destinations</span>
-      <div><a href="tel:+13057096099">+1 305 709 6099</a><a href="mailto:sales@talonexpeditions.com">sales@talonexpeditions.com</a></div>
-    </div>
-  </div>
-  <div class="shell header-inner">
-    <Brand variant="light" />
+  <div class="header-inner">
+    <div class="av-header-brand"><Brand variant="light" compact={true} /></div>
     <nav class="desktop-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/about/">About Us</a>
       <div class="nav-item has-menu">
-        <a href="/experiences/">Experiences</a>
-        <div class="mega-menu mega-menu--wide">
-          <div><p class="mega-label">Ways to travel</p>{experienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}</div>
-          <div><p class="mega-label">For groups</p>{audienceLinks.slice(0,4).map((item)=><a href={item.href}>{item.label}</a>)}</div>
-          <div class="mega-promo"><span>Start with the group, the activity, or the destination.</span><strong>You do not need a finished itinerary.</strong><a class="button button-small" href="/plan-a-trip/">Plan a Trip</a></div>
+        <a href="/experiences/">Destinations</a>
+        <div class="mega-menu">
+          {experienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}
         </div>
       </div>
       <div class="nav-item has-menu">
-        <a href="/group-travel/">Group Travel</a>
-        <div class="mega-menu">{audienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}</div>
+        <a href="/services/">Pages</a>
+        <div class="mega-menu mega-menu--wide">
+          <div><p class="mega-label">Travel planning</p><a href="/services/">Our Services</a><a href="/how-it-works/">How It Works</a><a href="/why-talon/">Why Choose Us</a><a href="/join-a-trip/">Tour Packages</a></div>
+          <div><p class="mega-label">For groups</p>{audienceLinks.slice(0,4).map((item)=><a href={item.href}>{item.label}</a>)}</div>
+          <div><p class="mega-label">Explore</p><a href="/trip-leaders-partners/">Trip Leaders & Partners</a><a href="/gallery/">Gallery</a><a href="/faq/">FAQ</a>{resourceLinks.slice(0,2).map((item)=><a href={item.href}>{item.label}</a>)}</div>
+        </div>
       </div>
-      <div class="nav-item has-menu"><a href="/join-a-trip/">Trips</a><div class="mega-menu"><a href="/join-a-trip/">Join a Trip</a><a href="/trip-examples/">Trip Planning Examples</a><a href="/services/">Planning Services</a><a href="/how-it-works/">How It Works</a></div></div>
-      <div class="nav-item has-menu">
-        <a href="/resources/">Resources</a>
-        <div class="mega-menu">{resourceLinks.map((item)=><a href={item.href}>{item.label}</a>)}<a href="/faq/">FAQs</a></div>
-      </div>
-      <a href="/why-talon/">Why Talon</a>
-      <a href="/about/">About</a>
+      <a href="/contact/">Contact Us</a>
     </nav>
-    <div class="header-actions"><a class="button button-small" href="/plan-a-trip/">Plan a Trip</a></div>
+    <div class="header-actions">
+      <a class="av-header-tool" href="/resources/" aria-label="Search travel resources">⌕</a>
+      <a class="av-header-tool" href="/experiences/" aria-label="Browse site sections"><span class="av-grid-icon" aria-hidden="true">{Array.from({length:9}).map(()=><i></i>)}</span></a>
+      <a class="button button-small" href="/plan-a-trip/">Get in Touch</a>
+    </div>
     <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle><span></span><span></span></button>
   </div>
   <div class="mobile-panel" data-mobile-panel>
-    {primaryNav.map((item)=><a href={item.href}>{item.label}</a>)}
-    <a href="/services/">Travel Planning Services</a>
-    <a href="/how-it-works/">How It Works</a>
-    <a href="/faq/">FAQs</a>
-    <a href="/contact/">Contact</a>
-    <a class="button" href="/plan-a-trip/">Plan a Trip</a>
+    <a href="/">Home</a><a href="/about/">About Us</a><a href="/experiences/">Destinations</a><a href="/private-group-travel/">Private Group Travel</a><a href="/join-a-trip/">Tour Packages</a><a href="/services/">Our Services</a><a href="/why-talon/">Why Choose Us</a><a href="/resources/">Travel Tips</a><a href="/faq/">FAQ</a><a href="/contact/">Contact Us</a><a class="button" href="/plan-a-trip/">Get in Touch</a>
   </div>
 </header>
 <script>
-  const toggle = document.querySelector('[data-menu-toggle]');
-  const panel = document.querySelector('[data-mobile-panel]');
-  toggle?.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!open));
-    panel?.toggleAttribute('data-open', !open);
+  const toggle=document.querySelector('[data-menu-toggle]');
+  const panel=document.querySelector('[data-mobile-panel]');
+  toggle?.addEventListener('click',()=>{
+    const open=toggle.getAttribute('aria-expanded')==='true';
+    toggle.setAttribute('aria-expanded',String(!open));
+    panel?.toggleAttribute('data-open',!open);
   });
 </script>

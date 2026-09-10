@@ -2,17 +2,14 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import FAQList from '../../components/FAQList.astro';
-import PlanningCTA from '../../components/PlanningCTA.astro';
 import { faqPages } from '../../data/faqs';
 import { images } from '../../data/assets';
 export function getStaticPaths(){ return faqPages.map((page)=>({params:{slug:page.slug},props:{page}})); }
-const { page } = Astro.props;
-const items=page.groups.flatMap((group)=>group.items);
+const { page }=Astro.props; const items=page.groups.flatMap(group=>group.items);
 const breadcrumbs=[{label:'FAQ',href:'/faq/'},{label:page.title,href:Astro.url.pathname}];
-const faqSchema={'@type':'FAQPage',mainEntity:items.map((item)=>({'@type':'Question',name:item.q,acceptedAnswer:{'@type':'Answer',text:item.a}}))};
+const faqSchema={'@type':'FAQPage',mainEntity:items.map(item=>({'@type':'Question',name:item.q,acceptedAnswer:{'@type':'Answer',text:item.a}}))};
 ---
 <BaseLayout title={`${page.title} | Talon Expeditions`} description={page.description} image={images.planning} breadcrumbs={breadcrumbs} schema={faqSchema}>
-  <section class="page-hero" style={`background-image:url('${images.planning}')`}><div class="shell"><Breadcrumbs items={breadcrumbs}/><p class="eyebrow">{page.eyebrow}</p><h1 class="section-title">{page.title}</h1><p>{page.description}</p></div></section>
-  <section class="section"><div class="shell">{page.groups.map((group,index)=><section class={index===0?'':'prose-section'}><div class="specialty-heading"><div><p class="eyebrow">Questions {String(index+1).padStart(2,'0')}</p><h2 class="section-title">{group.title}</h2></div><p class="section-copy">These answers explain the general planning model. The specific itinerary, provider, and written trip terms remain the authority for an actual booking.</p></div><FAQList items={group.items} openFirst={index===0}/></section>)}</div></section>
-  <PlanningCTA />
+  <section class="av-inner-hero" style={`background-image:url('${images.planning}')`}><div class="shell"><h1>{page.title}</h1><Breadcrumbs items={breadcrumbs}/></div></section>
+  <section class="section"><div class="shell av-faq-layout"><div class="av-faq-title"><p class="eyebrow">{page.eyebrow}</p><h2>Clear Answers for Real Trip Decisions.</h2><p>{page.description}</p></div><div class="av-faq-stack">{page.groups.map((group,index)=><section class="av-faq-group"><h3>{group.title}</h3><FAQList items={group.items} openFirst={index===0}/></section>)}</div></div></section>
 </BaseLayout>

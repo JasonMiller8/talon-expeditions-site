@@ -2,19 +2,35 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import FAQList from '../../components/FAQList.astro';
-import Newsletter from '../../components/Newsletter.astro';
-import PlanningCTA from '../../components/PlanningCTA.astro';
 import { articles } from '../../data/articles';
+import { images } from '../../data/assets';
 export function getStaticPaths(){ return articles.map((article)=>({params:{slug:article.slug},props:{article}})); }
 const { article } = Astro.props;
 const breadcrumbs=[{label:'Resources',href:'/resources/'},{label:article.category,href:`/resources/${article.categorySlug}/`},{label:article.title,href:Astro.url.pathname}];
 const articleSchema={'@type':'Article',headline:article.title,description:article.description,image:article.image,datePublished:article.date,dateModified:article.updated,author:{'@id':`${Astro.site}#organization`},publisher:{'@id':`${Astro.site}#organization`},mainEntityOfPage:new URL(Astro.url.pathname,Astro.site).toString()};
 const faqSchema={'@type':'FAQPage',mainEntity:article.faqs.map((item)=>({'@type':'Question',name:item.q,acceptedAnswer:{'@type':'Answer',text:item.a}}))};
+const recent=articles.filter((item)=>item.slug!==article.slug).slice(0,4);
+const anchor=(text:string)=>text.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 ---
 <BaseLayout title={`${article.title} | Talon Expeditions`} description={article.description} image={article.image} article={true} breadcrumbs={breadcrumbs} schema={[articleSchema,faqSchema]}>
-  <header class="article-hero"><div class="shell"><Breadcrumbs items={breadcrumbs}/><p class="eyebrow">{article.category}</p><h1>{article.title}</h1><p class="lead">{article.description}</p><div class="article-meta-row"><time datetime={article.date}>Published {article.date}</time><span>Updated {article.updated}</span><span>{article.readTime}</span></div></div></header>
-  <div class="article-feature" style={`background-image:url('${article.image}')`}></div>
-  <section class="section"><div class="shell article-layout"><article class="article-body"><div class="answer-panel"><h2>Short answer</h2><p>{article.answer}</p></div>{article.intro.map((p)=><p>{p}</p>)}{article.sections.map((section)=>{ const id=section.heading.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); return <section id={id}><h2>{section.heading}</h2>{section.paragraphs.map((p)=><p>{p}</p>)}{section.bullets && <ul>{section.bullets.map((item)=><li>{item}</li>)}</ul>}</section>; })}<div class="article-faq"><p class="eyebrow">Related questions</p><h2>Frequently asked questions</h2><FAQList items={article.faqs} openFirst={true}/></div></article><aside class="article-sidebar"><div class="sidebar-card"><h3>In this guide</h3>{article.sections.map((section)=><a href={`#${section.heading.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')}`}>{section.heading}</a>)}</div><div class="sidebar-card"><h3>Related Talon pages</h3>{article.related.map((item)=><a href={item.href}>{item.label}</a>)}</div><div class="sidebar-card"><h3>Need help planning?</h3><p class="section-copy" style="font-size:.84rem">Use the guide to get oriented, then bring us the real group and constraints.</p><a class="button button-small" href="/plan-a-trip/">Plan a Trip</a></div></aside></div></section>
-  <Newsletter />
-  <PlanningCTA />
+  <section class="av-inner-hero" style={`background-image:url('${article.image}')`}><div class="shell"><h1>Travel Tips & Guides</h1><Breadcrumbs items={breadcrumbs.slice(0,2)}/></div></section>
+  <section class="av-article-wrap"><div class="shell av-article-layout">
+    <aside class="av-article-sidebar">
+      <div><h3 class="av-side-title">Recent Guides</h3><div class="av-side-list">{recent.map((item)=><a href={`/guides/${item.slug}/`}>{item.title}</a>)}</div></div>
+      <a class="av-side-cta" href="/plan-a-trip/" style={`background-image:url('${images.trekking}')`}><small>Start planning</small><h3>Ready to explore the world?</h3><span>Book a planning conversation →</span></a>
+      <div><h3 class="av-side-title">In This Guide</h3><div class="av-side-list">{article.sections.map((section)=><a href={`#${anchor(section.heading)}`}>{section.heading}</a>)}</div></div>
+      <div><h3 class="av-side-title">Related Topics</h3><div class="av-side-tags">{article.related.map((item)=><a href={item.href}>{item.label}</a>)}</div></div>
+    </aside>
+    <article class="av-article-body">
+      <div class="av-article-feature" style={`background-image:url('${article.image}')`}></div>
+      <div class="av-article-meta">{article.category} · {article.readTime} · Updated {article.updated}</div>
+      <h1>{article.title}</h1>
+      <p>{article.description}</p>
+      <div class="av-article-quote"><strong>Short answer:</strong> {article.answer}</div>
+      {article.intro.map((p)=><p>{p}</p>)}
+      {article.sections.map((section)=><section id={anchor(section.heading)}><h2>{section.heading}</h2>{section.paragraphs.map((p)=><p>{p}</p>)}{section.bullets && <ul>{section.bullets.map((item)=><li>{item}</li>)}</ul>}</section>)}
+      <section><h2>Frequently asked questions</h2><FAQList items={article.faqs} openFirst={true}/></section>
+      <div class="av-article-bottom"><div><strong>Tags:</strong> {article.category}</div><a class="button button-small" href="/plan-a-trip/">Plan a Trip</a></div>
+    </article>
+  </div></section>
 </BaseLayout>

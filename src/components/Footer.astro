@@ -1,23 +1,28 @@
 ---
 import Brand from './Brand.astro';
-import { experienceLinks, audienceLinks, resourceLinks, business } from '../data/site';
+import { business } from '../data/site';
 ---
 <footer class="footer">
-  <div class="shell footer-lead">
-    <div><p class="eyebrow">Start with an idea</p><h2>Have a group, a destination, or a trip you have been talking about for years?</h2></div>
-    <div><p>Tell us what you are trying to create. We can help turn the early idea into a realistic group-travel plan.</p><a class="button" href="/plan-a-trip/">Start Planning</a></div>
+  <div class="av-footer-grid shell">
+    <div class="av-footer-brand">
+      <Brand variant="light" />
+      <p>Talon Expeditions plans supported group travel, active journeys, learn-to trips, cultural programs, cruises, and custom itineraries for people who want more than a generic package.</p>
+      <div class="av-footer-social" aria-label="Social links"><span>◉</span><span>●</span><span>▶</span><span>◆</span></div>
+    </div>
+    <div class="av-footer-col">
+      <h3>Quick Links</h3>
+      <a href="/about/">About Us</a><a href="/experiences/">Destinations</a><a href="/join-a-trip/">Tour Packages</a><a href="/services/">Our Services</a><a href="/how-it-works/">How It Works</a><a href="/resources/">Blog</a><a href="/contact/">Contact Us</a>
+    </div>
+    <div class="av-footer-col">
+      <h3>Top Experiences</h3>
+      <a href="/private-group-travel/">Private Group Travel</a><a href="/learn-to-trips/">Learn-To Trips</a><a href="/trekking-active-travel/">Trekking & Active Travel</a><a href="/cultural-cruise-travel/">Culture & Cruise</a><a href="/group-travel/">Clubs & Communities</a><a href="/gallery/">Experience Gallery</a>
+    </div>
+    <div class="av-footer-col">
+      <h3>Contact Information</h3>
+      <div class="av-contact-row"><div class="av-contact-icon">⌕</div><div><small>Phone Number</small><a href={`tel:${business.phoneHref}`}>{business.phone}</a></div></div>
+      <div class="av-contact-row"><div class="av-contact-icon">✉</div><div><small>Email Address</small><a href={`mailto:${business.email}`}>{business.email}</a></div></div>
+      <div class="av-contact-row"><div class="av-contact-icon">⌖</div><div><small>U.S. Office</small><strong>{business.address.street}<br/>{business.address.city}, {business.address.region} {business.address.postalCode}</strong></div></div>
+    </div>
   </div>
-  <div class="shell footer-grid">
-    <div class="footer-brand"><Brand variant="light" /><p>{business.description}</p><p class="legal">{business.legalName}</p></div>
-    <div><h3>Experiences</h3>{experienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}<a href="/services/">Travel Planning Services</a></div>
-    <div><h3>For Groups</h3>{audienceLinks.map((item)=><a href={item.href}>{item.label}</a>)}</div>
-    <div><h3>Resources</h3>{resourceLinks.slice(0,4).map((item)=><a href={item.href}>{item.label}</a>)}<a href="/faq/">FAQs</a><a href="/gallery/">Experience Gallery</a><a href="/trip-examples/">Trip Planning Examples</a></div>
-  </div>
-  <div class="shell footer-contact">
-    <div><strong>Talk with Talon</strong><a href={`mailto:${business.email}`}>{business.email}</a><a href={`tel:${business.phoneHref}`}>{business.phone}</a></div>
-    <div><strong>U.S. correspondence</strong><span>{business.address.street}<br/>{business.address.city}, {business.address.region} {business.address.postalCode}</span></div>
-    <div><strong>Company</strong><a href="/about/">About</a><a href="/why-talon/">Why Talon</a><a href="/trip-leaders-partners/">Trip Leaders & Partners</a><a href="/careers/">Careers</a></div>
-    <div><strong>Legal</strong><a href="/privacy/">Privacy</a><a href="/cookies/">Cookies</a><a href="/terms/">Terms</a></div>
-  </div>
-  <div class="shell footer-bottom"><span>© {new Date().getFullYear()} Talon Expeditions</span><span>{business.tagline}</span></div>
+  <div class="footer-bottom"><span>© {new Date().getFullYear()} {business.legalName}. All Rights Reserved.</span><span><a href="/privacy/">Privacy Policy</a> &nbsp; · &nbsp; <a href="/terms/">Terms & Conditions</a></span></div>
 </footer>

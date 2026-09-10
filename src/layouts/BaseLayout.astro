@@ -6,66 +6,16 @@ import MailtoForms from '../components/MailtoForms.astro';
 import '../styles/global.css';
 import '../styles/specialty.css';
 import '../styles/content.css';
+import '../styles/avero-fidelity.css';
+import '../styles/avero-pages.css';
 import { business } from '../data/site';
-
 interface Crumb { label:string; href:string }
-interface Props {
-  title: string;
-  description: string;
-  image?: string;
-  schema?: Record<string, unknown> | Record<string, unknown>[];
-  breadcrumbs?: Crumb[];
-  noindex?: boolean;
-  article?: boolean;
-}
-const { title, description, image, schema, breadcrumbs=[], noindex=false, article=false } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const absoluteImage = image ? new URL(image, Astro.site).toString() : undefined;
-const organization = {
-  '@type':'Organization',
-  '@id':`${Astro.site}#organization`,
-  name:business.name,
-  legalName:business.legalName,
-  url:Astro.site?.toString(),
-  email:business.email,
-  telephone:business.phone,
-  address:{'@type':'PostalAddress',streetAddress:business.address.street,addressLocality:business.address.city,addressRegion:business.address.region,postalCode:business.address.postalCode,addressCountry:business.address.country},
-  areaServed:{'@type':'Place',name:'Worldwide'},
-  description:business.description
-};
-const website = {'@type':'WebSite','@id':`${Astro.site}#website`,url:Astro.site?.toString(),name:business.name,publisher:{'@id':`${Astro.site}#organization`}};
-const breadcrumbSchema = breadcrumbs.length ? {'@type':'BreadcrumbList',itemListElement:[{ '@type':'ListItem',position:1,name:'Home',item:new URL('/',Astro.site).toString()},...breadcrumbs.map((c,i)=>({'@type':'ListItem',position:i+2,name:c.label,item:new URL(c.href,Astro.site).toString()}))]} : undefined;
-const extra = Array.isArray(schema) ? schema : schema ? [schema] : [];
-const graph = [organization, website, ...(breadcrumbSchema?[breadcrumbSchema]:[]), ...extra];
+interface Props { title:string; description:string; image?:string; schema?:Record<string,unknown>|Record<string,unknown>[]; breadcrumbs?:Crumb[]; noindex?:boolean; article?:boolean }
+const { title, description, image, schema, breadcrumbs=[], noindex=false, article=false }=Astro.props;
+const canonical=new URL(Astro.url.pathname,Astro.site); const absoluteImage=image?new URL(image,Astro.site).toString():undefined;
+const organization={'@type':'Organization','@id':`${Astro.site}#organization`,name:business.name,legalName:business.legalName,url:Astro.site?.toString(),email:business.email,telephone:business.phone,address:{'@type':'PostalAddress',streetAddress:business.address.street,addressLocality:business.address.city,addressRegion:business.address.region,postalCode:business.address.postalCode,addressCountry:business.address.country},areaServed:{'@type':'Place',name:'Worldwide'},description:business.description};
+const website={'@type':'WebSite','@id':`${Astro.site}#website`,url:Astro.site?.toString(),name:business.name,publisher:{'@id':`${Astro.site}#organization`}};
+const breadcrumbSchema=breadcrumbs.length?{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:new URL('/',Astro.site).toString()},...breadcrumbs.map((c,i)=>({'@type':'ListItem',position:i+2,name:c.label,item:new URL(c.href,Astro.site).toString()}))]}:undefined;
+const extra=Array.isArray(schema)?schema:schema?[schema]:[]; const graph=[organization,website,...(breadcrumbSchema?[breadcrumbSchema]:[]),...extra];
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex,follow" />}
-    <meta property="og:type" content={article?'article':'website'} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:site_name" content={business.name} />
-    {absoluteImage && <meta property="og:image" content={absoluteImage} />}
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    {absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
-    <meta name="theme-color" content="#080706" />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@graph':graph})}></script>
-    <title>{title}</title>
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <Header />
-    <main id="main-content"><slot /></main>
-    <Footer />
-    <CookieConsent />
-    <MailtoForms />
-  </body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content={description}/><link rel="canonical" href={canonical}/>{noindex&&<meta name="robots" content="noindex,follow"/>}<meta property="og:type" content={article?'article':'website'}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:site_name" content={business.name}/>{absoluteImage&&<meta property="og:image" content={absoluteImage}/>}<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/>{absoluteImage&&<meta name="twitter:image" content={absoluteImage}/>}<meta name="theme-color" content="#050101"/><script is:inline type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@graph':graph})}></script><title>{title}</title></head><body><a class="skip-link" href="#main-content">Skip to content</a><Header/><main id="main-content"><slot/></main><Footer/><CookieConsent/><MailtoForms/></body></html>
