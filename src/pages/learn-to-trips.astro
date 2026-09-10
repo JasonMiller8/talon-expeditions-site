@@ -14,7 +14,7 @@ const faqs=[
   {q:'Does every Learn-To Trip include a certification?',a:'No. Some activities use formal certification pathways; others focus on practical instruction, progression, and supervised experience without a formal credential.'},
   {q:'Can a club use Learn-To Trips as a progression program?',a:'Yes. A community can build recurring trips around beginner entry, intermediate progression, or preparation for more advanced objectives.'}
 ];
-const serviceSchema={'@type':'Service',name:'Learn-To Trips',description:'Skill-based group travel built around learning and progressing in activities such as scuba diving, skiing, mountaineering, wilderness skills, sailing, and surfing.',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name':'Worldwide'}};
+const serviceSchema={'@type':'Service',name:'Learn-To Trips',description:'Skill-based group travel built around learning and progressing in activities such as scuba diving, skiing, mountaineering, wilderness skills, sailing, and surfing.',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name:'Worldwide'}};
 const faqSchema={'@type':'FAQPage',mainEntity:faqs.map((i)=>({'@type':'Question',name:i.q,acceptedAnswer:{'@type':'Answer',text:i.a}}))};
 ---
 <BaseLayout title="Learn-To Trips & Skill-Based Travel | Talon Expeditions" description="Skill-based group travel built around learning scuba diving, skiing, mountaineering, wilderness skills, sailing, surfing, and other activities with structured instruction and travel support." image={images.surf} breadcrumbs={breadcrumbs} schema={[serviceSchema,faqSchema]}>
