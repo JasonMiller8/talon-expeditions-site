@@ -4,7 +4,7 @@
 </div>
 <script>
   const key='talon-cookie-preference-v1';
-  const banner=document.querySelector('[data-cookie-consent]');
+  const banner=document.querySelector<HTMLElement>('[data-cookie-consent]');
   const existing=localStorage.getItem(key);
   if (banner && !existing) banner.hidden=false;
   document.querySelectorAll('[data-cookie-choice]').forEach((button)=>button.addEventListener('click',()=>{
