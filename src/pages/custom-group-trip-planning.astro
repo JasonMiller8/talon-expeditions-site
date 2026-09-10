@@ -11,7 +11,7 @@ const faqs=[
   {q:'Can the group choose between several destination options?',a:'Yes. Early planning can compare two or three realistic destinations against the same criteria so the organizer can make a more informed choice.'},
   {q:'Can a custom trip become a repeatable annual program?',a:'Yes. Once a community understands its preferred trip style and traveler profile, later departures can often be developed more efficiently while still improving the itinerary.'}
 ];
-const schema={'@type':'Service',name:'Custom Group Trip Planning',description:'Custom group trip planning for clubs, communities, businesses, studios, teams, friends, and organizer-led departures.',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name':'Worldwide'}};
+const schema={'@type':'Service',name:'Custom Group Trip Planning',description:'Custom group trip planning for clubs, communities, businesses, studios, teams, friends, and organizer-led departures.',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name:'Worldwide'}};
 const faqSchema={'@type':'FAQPage',mainEntity:faqs.map((i)=>({'@type':'Question',name:i.q,acceptedAnswer:{'@type':'Answer',text:i.a}}))};
 ---
 <BaseLayout title="Custom Group Trip Planning | Talon Expeditions" description="Custom group trip planning for clubs, communities, businesses, studios, teams, friends, and organizer-led departures, with itinerary design and worldwide travel coordination." image={images.planning} breadcrumbs={breadcrumbs} schema={[schema,faqSchema]}>
