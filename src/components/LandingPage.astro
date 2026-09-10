@@ -13,7 +13,7 @@ const serviceSchema={
   name:page.title,
   description:page.description,
   provider:{'@id':`${Astro.site}#organization`},
-  areaServed:{'@type':'Place',name':'Worldwide'},
+  areaServed:{'@type':'Place',name:'Worldwide'},
   url:new URL(Astro.url.pathname,Astro.site).toString()
 };
 const faqSchema={'@type':'FAQPage',mainEntity:page.faqs.map((item)=>({'@type':'Question',name:item.q,acceptedAnswer:{'@type':'Answer',text:item.a}}))};
