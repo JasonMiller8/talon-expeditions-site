@@ -1,0 +1,39 @@
+---
+import Brand from './Brand.astro';
+---
+<header class="site-header" data-header>
+  <div class="shell header-inner">
+    <Brand />
+    <nav class="desktop-nav" aria-label="Primary">
+      <a href="/private-group-travel/">Private Groups</a>
+      <a href="/learn-to-trips/">Learn-To Trips</a>
+      <a href="/trekking-active-travel/">Active Travel</a>
+      <a href="/cultural-cruise-travel/">Culture & Cruise</a>
+      <a href="/about/">About</a>
+    </nav>
+    <div class="header-actions">
+      <a class="text-link" href="mailto:sales@talonexpeditions.com">Email Us</a>
+      <a class="button button-small" href="/contact/">Plan a Trip</a>
+    </div>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle>
+      <span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-panel" data-mobile-panel>
+    <a href="/private-group-travel/">Private Groups</a>
+    <a href="/learn-to-trips/">Learn-To Trips</a>
+    <a href="/trekking-active-travel/">Active Travel</a>
+    <a href="/cultural-cruise-travel/">Culture & Cruise</a>
+    <a href="/about/">About</a>
+    <a href="/contact/">Plan a Trip</a>
+  </div>
+</header>
+<script>
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const panel = document.querySelector('[data-mobile-panel]');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    panel?.toggleAttribute('data-open', !open);
+  });
+</script>
