@@ -14,7 +14,7 @@ const faqs=[
   {q:'Can travelers arrive from different cities?',a:'Often. The trip can use coordinated flight planning, a common arrival window, or a destination meeting point depending on the group and itinerary.'},
   {q:'Can the group include different activity levels?',a:'Sometimes. Optional routes, split activities, rest choices, or alternate experiences can help, but every trip still needs a clear minimum participation standard.'}
 ];
-const serviceSchema={'@type':'Service',name:'Private Group Travel',description:'Custom private group travel planning for clubs, communities, businesses, studios, teams, friends, and affinity groups.',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name':'Worldwide'}};
+const serviceSchema={'@type':'Service',name:'Private Group Travel',description:'Custom private group travel planning for clubs, communities, businesses, studios, teams, friends, and affinity groups.',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name:'Worldwide'}};
 const faqSchema={'@type':'FAQPage',mainEntity:faqs.map((i)=>({'@type':'Question',name:i.q,acceptedAnswer:{'@type':'Answer',text:i.a}}))};
 ---
 <BaseLayout title="Private Group Travel Planning | Talon Expeditions" description="Custom private group travel planning for clubs, communities, businesses, studios, teams, friends, and affinity groups, with itinerary design, organizer support, and worldwide coordination." image={images.group} breadcrumbs={breadcrumbs} schema={[serviceSchema,faqSchema]}>
