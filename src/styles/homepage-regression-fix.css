@@ -1,82 +1,195 @@
-/* Homepage-only correction pass after visual review. Keep this layer after the donor fidelity CSS. */
+/* Homepage correction: use the purchased Avero homepage geometry rather than an interpreted hero/layout. */
 
-.av-header-brand .brand-logo{width:190px;max-width:100%}
-.av-header-brand .brand-logo img{width:100%;height:auto;object-fit:contain;object-position:left center}
+/* Header/logo scale from the donor header. */
+.av-header-brand .brand-logo{width:176px;max-width:100%}
+.av-header-brand .brand-logo img{display:block;width:100%;height:auto;object-fit:contain;object-position:left center}
+.header-inner{height:90px}
+.desktop-nav{gap:30px}
+.desktop-nav>a,.nav-item>a{font-size:13px}
+.header-actions{gap:14px}
+.header-actions .button{min-height:46px;padding:13px 25px}
 
-.av-home-hero{min-height:700px;overflow:hidden}
-.av-home-hero::before{background:linear-gradient(90deg,rgba(5,1,1,.62),rgba(5,1,1,.2) 58%,rgba(5,1,1,.25)),linear-gradient(0deg,rgba(5,1,1,.38),transparent 54%)}
-.av-home-hero-inner{min-height:700px;padding-top:150px;padding-bottom:120px;grid-template-columns:40% 60%;align-items:end}
-.av-home-intro{padding-bottom:0;align-self:end}
-.av-home-intro h1{max-width:520px;font-size:clamp(50px,4.8vw,66px);line-height:1.02}
-.av-home-intro>p{max-width:500px;font-size:15px;line-height:1.75}
-.av-home-review{margin-top:24px}
-.av-home-hero-right{align-self:end;padding-left:66px;padding-bottom:6px}
-.av-home-video-note{display:flex;align-items:center;gap:13px;margin:0 0 34px auto;width:min(330px,100%);color:#fff}
-.av-home-video-note .av-play{width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.8);border-radius:50%;font-size:13px}
-.av-home-video-note strong{display:block;color:#fff;font-size:13px;line-height:1.35}
-.av-home-video-note small{display:block;margin-top:2px;color:rgba(255,255,255,.7);font-size:10px;line-height:1.5}
-.av-home-tagcloud{display:flex;flex-wrap:wrap;gap:5px 9px;max-width:360px;margin:0 0 22px}
-.av-home-tagcloud span{color:rgba(255,255,255,.72);font-size:12px;line-height:1.35}
-.av-home-hero-right h2{margin:0;max-width:650px;color:#fff;font-size:clamp(52px,5.4vw,74px);line-height:.96;letter-spacing:-.055em;font-weight:600}
+/* HERO
+   Elementor source: 160 top / 120 bottom / 50 gap.
+   Video review aligns to the right at 50%, description is 40%, tags are 22%, H1 is 60% aligned right. */
+.av-home-hero{position:relative;min-height:0;padding:160px 20px 120px;overflow:visible;background-position:center;background-size:cover;color:#fff}
+.av-home-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,1,1,.55),rgba(5,1,1,.14) 58%,rgba(5,1,1,.22)),linear-gradient(0deg,rgba(5,1,1,.25),transparent 48%)}
+.av-home-hero-stack{position:relative;z-index:2;display:flex;flex-direction:column;gap:50px}
+.av-home-review-row{width:50%;margin-left:auto;display:flex;justify-content:flex-start;align-items:center}
+.av-home-video-note{display:flex;align-items:center;gap:22px;color:#fff}
+.av-home-video-note .av-play{width:72px;height:72px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.8);border-radius:50%;font-size:17px;background:rgba(255,255,255,.08)}
+.av-home-video-note strong{display:block;color:#fff;font-size:16px;line-height:1.35;font-weight:500}
+.av-home-video-note small{display:block;margin-top:4px;max-width:230px;color:rgba(255,255,255,.78);font-size:12px;line-height:1.5}
+.av-home-middle-row{display:flex;justify-content:space-between;align-items:flex-start;gap:50px}
+.av-home-intro{width:40%;padding:0}
+.av-home-intro h1{margin:0 0 14px;color:#fff;font-size:40px;line-height:1.2;letter-spacing:-.035em;font-weight:600}
+.av-home-intro>p{max-width:490px;margin:0;color:rgba(255,255,255,.84);font-size:16px;line-height:1.8}
+.av-home-review{margin-top:24px;display:flex;align-items:center;gap:14px;color:#fff;font-size:13px;line-height:1.4}
+.av-avatar-stack{display:flex;min-width:145px}
+.av-avatar-stack span{width:50px;height:50px;margin-left:-12px;border:2px solid #fff;border-radius:50%;background:center/cover no-repeat}
+.av-avatar-stack span:first-child{margin-left:0}
+.av-home-tagcloud{width:22%;display:flex;flex-wrap:wrap;justify-content:flex-end;align-content:flex-start;gap:7px 6px;padding-top:50px}
+.av-home-tagcloud span{display:inline-flex;padding:4px 10px;border:1px solid rgba(255,255,255,.58);border-radius:999px;color:#fff;background:rgba(255,255,255,.06);font-size:11px;line-height:1.2;white-space:nowrap}
+.av-home-heading-row{width:60%;margin-left:auto}
+.av-home-heading-row h2{margin:0;color:#fff;font-size:80px;line-height:1.02;letter-spacing:-.05em;font-weight:600}
 
-.av-home-booking-wrap{margin-top:-108px;padding:0 20px}
-.av-home-booking-grid{grid-template-columns:34% 22% 22%;justify-content:start;align-items:end}
-.av-home-booking-card{min-height:325px;padding:25px 28px;border-radius:16px 16px 0 0}
-.av-home-booking-card h2{margin:0 0 20px;font-size:21px;line-height:1.25}
-.av-home-booking-card .planner-grid{gap:11px}
-.av-home-booking-card .button{width:100%;margin-top:2px}
-.av-home-support{min-height:154px;padding:28px 30px;background:#fff;border-radius:0;display:flex;flex-direction:column;justify-content:center}
-.av-home-support h3{margin:0 0 8px;font-size:19px}
-.av-home-support p{margin:0;color:var(--av-text);font-size:13px;line-height:1.65}
-.av-home-support--accent{background:var(--av-red);color:#fff;border-radius:16px 16px 0 0}
-.av-home-support--accent h3,.av-home-support--accent p{color:#fff}
-.av-home-destination-section{padding-top:105px}
+/* BOOKING / SUPPORT STRIP
+   Elementor source: 40% form at -320px; 60% two cards aligned at the bottom. */
+.av-home-booking-wrap{position:relative;z-index:8;margin-top:-320px;padding:0 20px;background:transparent}
+.av-home-booking-grid{display:grid;grid-template-columns:40% 30% 30%;align-items:end;gap:0}
+.av-home-booking-card{width:90%;min-height:0;margin:0;background:#fff;border-radius:20px;padding:30px;box-shadow:0 22px 55px rgba(0,0,0,.12)}
+.av-home-booking-card .planner-grid{display:grid;gap:12px}
+.av-home-booking-card .field label{display:block;margin:0 0 6px;color:#686868;font-size:11px;line-height:1.3;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.av-home-booking-card select{width:100%;min-height:48px;padding:11px 13px;border:1px solid #dfdcda;border-radius:10px;background:#f7f6f5;color:#252525;font-size:13px}
+.av-home-booking-card .button{width:100%;min-height:50px;margin-top:2px;padding:13px 18px;border-radius:10px;font-size:13px}
+.av-home-support{min-height:154px;margin:0 8px 0 0;padding:29px 30px;display:grid;grid-template-columns:54px 1fr;gap:15px;align-items:start;background:#fff;border:1px solid #eee;border-radius:20px;color:var(--av-ink)}
+.av-home-support--accent{margin-left:8px;margin-right:0;background:var(--av-red);border-color:var(--av-red);color:#fff}
+.av-support-icon{width:46px;height:46px;display:grid;place-items:center;border:1px solid var(--av-red);border-radius:50%;color:var(--av-red);font-size:13px;font-weight:700}
+.av-home-support--accent .av-support-icon{border-color:#fff;color:#fff}
+.av-home-support h3{margin:0 0 8px;color:inherit;font-size:20px;line-height:1.3}
+.av-home-support p{margin:0;color:var(--av-text);font-size:13px;line-height:1.7}
+.av-home-support--accent p{color:rgba(255,255,255,.88)}
 
-.av-category-stage{padding:105px 20px}
-.av-category-top{display:grid;grid-template-columns:30% 70%;gap:42px;align-items:end;margin-bottom:28px}
-.av-category-description{max-width:290px;margin:0;color:#888;font-size:12px;line-height:1.7}
-.av-category-heading .eyebrow{margin-bottom:14px}
-.av-category-heading h2{margin:0;color:#fff;font-size:clamp(35px,3.5vw,46px);line-height:1.08;letter-spacing:-.035em}
-.av-category-body{display:grid;grid-template-columns:30% 70%;gap:42px;align-items:center}
-.av-category-menu{align-self:center}
-.av-category-menu li{font-size:18px;line-height:1.55}
-.av-category-visual{min-height:430px}
-.av-category-caption{left:26px;bottom:24px;max-width:380px}
-.av-category-caption h3{margin:0 0 8px;color:#fff;font-size:20px}
-.av-category-caption p{margin:0 0 16px;color:rgba(255,255,255,.86)}
+/* POPULAR DESTINATIONS
+   Elementor source: 120px section rhythm, 58% heading column, first card 40%, remaining two share 58%. */
+.av-home-destination-section{padding-top:120px!important;padding-bottom:120px!important}
+.av-section-heading{display:grid;grid-template-columns:58% 42%;gap:50px;align-items:end;margin-bottom:50px}
+.av-section-heading>div h2{margin:0;color:var(--av-ink);font-size:55px;line-height:1.2;letter-spacing:-.035em}
+.av-section-heading>p{max-width:440px;margin:0 0 12px;color:var(--av-text);font-size:14px;line-height:1.8}
+.av-section-heading>.button{grid-column:2;justify-self:end;margin-top:-58px;min-height:46px;padding:13px 25px;border-radius:10px;font-size:12px}
+.av-destination-grid{display:grid;grid-template-columns:40fr 29fr 29fr;gap:20px}
+.av-destination-card{position:relative;min-height:520px;padding:0;border-radius:20px;overflow:hidden;background:center/cover no-repeat;color:#fff;text-decoration:none}
+.av-destination-card::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,1,1,.82),rgba(5,1,1,.03) 62%)}
+.av-destination-card-top{position:absolute;z-index:2;top:28px;left:28px;right:28px;display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:11px}
+.av-card-arrow{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:var(--av-red);color:#fff}
+.av-destination-card-content{position:absolute;z-index:2;left:28px;right:28px;bottom:28px}
+.av-destination-card h3{margin:0 0 8px;color:#fff;font-size:24px;line-height:1.3}
+.av-destination-card--featured h3{font-size:27px}
+.av-destination-card p{max-width:400px;margin:0;color:rgba(255,255,255,.82);font-size:12px;line-height:1.65}
+.av-destination-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.av-destination-tags span{padding:4px 8px;border:1px solid rgba(255,255,255,.38);border-radius:999px;color:#fff;font-size:9px;line-height:1.3}
 
-.av-proof-card .stars{display:none}
+/* TOUR CATEGORIES
+   Elementor source: 30% description / 66% heading and matching tab composition. */
+.av-category-stage{padding:120px 20px;background:var(--av-black);color:#fff}
+.av-category-top{display:grid;grid-template-columns:30% 66%;justify-content:space-between;gap:4%;align-items:end;margin-bottom:42px}
+.av-category-description{max-width:330px;margin:0 0 4px;color:#8f8989;font-size:13px;line-height:1.8;text-align:right}
+.av-category-heading .eyebrow{margin-bottom:15px;color:#fff;background:transparent}
+.av-category-heading h2{margin:0;color:#fff;font-size:55px;line-height:1.2;letter-spacing:-.035em}
+.av-category-body{display:grid;grid-template-columns:30% 66%;justify-content:space-between;gap:4%;align-items:start}
+.av-category-tabs{display:flex;flex-direction:column;align-items:flex-end;padding-top:12px}
+.av-category-tabs button{display:block;width:auto;padding:2px 0;border:0;background:transparent;color:#fff;font:inherit;font-size:24px;line-height:1.55;font-weight:500;text-align:right;cursor:pointer}
+.av-category-tabs button[aria-selected="true"]{color:var(--av-red)}
+.av-category-tabs button:hover{color:var(--av-red)}
+.av-category-visual{position:relative;min-height:500px;border-radius:20px;background:center/cover no-repeat;overflow:visible}
+.av-category-visual::after{content:"";position:absolute;inset:0;border-radius:20px;background:linear-gradient(0deg,rgba(5,1,1,.35),transparent 48%)}
+.av-category-heart{position:absolute;z-index:3;left:-24px;top:-24px;width:58px;height:58px;display:grid;place-items:center;border:10px solid var(--av-black);border-radius:50%;background:var(--av-red);color:#fff;font-size:20px}
+.av-category-caption{position:absolute;z-index:3;right:-1px;bottom:-1px;width:48%;padding:24px 26px;background:var(--av-black);border-radius:20px 0 0 0;color:#fff}
+.av-category-caption h3{margin:0 0 8px;color:#fff;font-size:18px;line-height:1.4}
+.av-category-caption p{margin:0 0 10px;color:#c2bdbd;font-size:11px;line-height:1.65}
+.av-category-caption .text-arrow{font-size:10px;color:var(--av-red)}
+
+/* WHY CHOOSE US */
+.av-values-intro{display:grid;grid-template-columns:50% 50%;gap:50px;align-items:end;margin-bottom:80px}
+.av-values-intro .section-title{font-size:55px;line-height:1.2}
+.av-values-intro>p{margin:0 0 5px;color:var(--av-text);font-size:14px;line-height:1.8}
+.av-values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.av-value{padding:0 30px;border-left:1px solid var(--av-line)}
+.av-value:first-child{padding-left:0;border-left:0}
+.av-value-badge{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.av-value-badge h3{margin:0;color:var(--av-ink);font-size:20px;line-height:1.4}
+.av-value-badge span{width:35px;height:35px;flex:0 0 35px;display:grid;place-items:center;border-radius:50%;background:var(--av-red);color:#fff;font-size:11px}
+.av-value p{margin:25px 0 0;color:var(--av-text);font-size:13px;line-height:1.8}
+
+/* GALLERY SNAPSHOT */
+.av-gallery-title{text-align:center;max-width:760px;margin:0 auto 48px;padding-bottom:25px;border-bottom:1px solid var(--av-line)}
+.av-gallery-title h2{margin:0;color:var(--av-ink);font-size:28px;line-height:1.35;font-weight:500;letter-spacing:-.02em}
+.av-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.av-gallery-tile{position:relative;min-height:320px;border-radius:20px 75px 20px 20px;overflow:hidden;background:center/cover no-repeat;color:#fff;text-decoration:none}
+.av-gallery-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,1,1,.62),transparent 56%)}
+.av-gallery-tile span{position:absolute;z-index:2;left:28px;bottom:26px;color:#fff;font-size:14px;font-weight:500}
+.av-gallery-tile i{position:absolute;z-index:3;right:0;top:0;width:54px;height:54px;display:grid;place-items:center;border-radius:0 0 0 34px;background:#fff;color:var(--av-red);font-size:17px;font-style:normal}
+.av-gallery-more{text-align:center;margin-top:28px;color:var(--av-text);font-size:12px}
+.av-gallery-more a{color:var(--av-red);text-decoration:none}
+
+/* Keep non-testimonial proof content in the donor testimonial geometry. */
+.av-proof-card .stars{display:none!important}
 .av-proof-card h3{margin-top:0}
 
 @media(max-width:1024px){
-  .av-header-brand .brand-logo{width:170px}
-  .av-home-hero-inner{grid-template-columns:42% 58%;padding-bottom:105px}
-  .av-home-hero-right{padding-left:36px}
-  .av-home-booking-grid{grid-template-columns:40% 28% 28%}
-  .av-category-top,.av-category-body{grid-template-columns:34% 66%;gap:28px}
+  .av-header-brand .brand-logo{width:160px}
+  .header-inner{height:82px;grid-template-columns:26% 49% 25%}
+  .desktop-nav{gap:18px}
+  .av-home-hero{padding:145px 18px 110px}
+  .av-home-review-row{width:58%}
+  .av-home-intro{width:45%}
+  .av-home-tagcloud{width:28%}
+  .av-home-heading-row{width:66%}
+  .av-home-heading-row h2{font-size:66px}
+  .av-home-booking-grid{grid-template-columns:42% 29% 29%}
+  .av-home-booking-card{width:94%}
+  .av-destination-card{min-height:460px}
+  .av-category-top,.av-category-body{grid-template-columns:32% 64%}
+  .av-category-tabs button{font-size:21px}
+  .av-values-grid{grid-template-columns:1fr 1fr;gap:36px 0}
+  .av-value:nth-child(3){padding-left:0;border-left:0}
 }
 
 @media(max-width:780px){
-  .av-home-hero{min-height:650px}
-  .av-home-hero-inner{display:block;min-height:650px;padding-top:130px;padding-bottom:95px}
-  .av-home-intro{max-width:560px}
-  .av-home-hero-right{display:none}
-  .av-home-booking-wrap{margin-top:-52px}
-  .av-home-booking-grid{display:grid;grid-template-columns:1fr 1fr}
-  .av-home-booking-card{grid-column:1/-1;border-radius:16px}
-  .av-home-support,.av-home-support--accent{border-radius:0 0 16px 16px;min-height:125px}
-  .av-category-top{grid-template-columns:1fr;margin-bottom:24px}
-  .av-category-description{order:2;max-width:600px}
+  .header-inner{height:78px;grid-template-columns:1fr auto}
+  .av-header-brand .brand-logo{width:155px}
+  .av-home-hero{padding:130px 18px 100px}
+  .av-home-hero-stack{gap:34px}
+  .av-home-review-row{width:100%;justify-content:flex-start}
+  .av-home-video-note .av-play{width:54px;height:54px}
+  .av-home-middle-row{display:block}
+  .av-home-intro{width:100%;max-width:580px}
+  .av-home-intro h1{font-size:38px}
+  .av-home-tagcloud{display:none}
+  .av-home-heading-row{width:100%;margin-left:0}
+  .av-home-heading-row h2{font-size:54px}
+  .av-home-booking-wrap{margin-top:-58px;padding:0 18px}
+  .av-home-booking-grid{grid-template-columns:1fr 1fr}
+  .av-home-booking-card{grid-column:1/-1;width:100%;margin-bottom:16px}
+  .av-home-support{margin:0 8px 0 0;border-radius:20px}
+  .av-home-support--accent{margin:0 0 0 8px}
+  .av-section-heading{grid-template-columns:1fr;gap:20px}
+  .av-section-heading>.button{grid-column:auto;justify-self:start;margin-top:0}
+  .av-section-heading>div h2{font-size:44px}
+  .av-destination-grid{grid-template-columns:1fr 1fr}
+  .av-destination-card--featured{grid-column:1/-1}
+  .av-category-top{grid-template-columns:1fr;gap:18px}
+  .av-category-description{text-align:left;order:2;max-width:620px}
+  .av-category-heading h2{font-size:44px}
   .av-category-body{grid-template-columns:1fr}
-  .av-category-menu{display:flex;flex-wrap:wrap;gap:7px 16px;margin-bottom:8px}
-  .av-category-menu li{font-size:16px}
+  .av-category-tabs{flex-direction:row;align-items:center;flex-wrap:wrap;gap:6px 18px;padding:0 0 18px}
+  .av-category-tabs button{font-size:16px;text-align:left}
+  .av-category-heart{left:14px;top:14px;border-width:6px}
+  .av-category-caption{width:68%}
+  .av-values-intro{grid-template-columns:1fr;gap:24px;margin-bottom:45px}
+  .av-values-intro .section-title{font-size:44px}
+  .av-gallery-grid{grid-template-columns:1fr 1fr}
 }
 
 @media(max-width:520px){
-  .av-header-brand .brand-logo{width:160px}
+  .av-home-hero{padding:120px 14px 92px}
+  .av-home-video-note small{display:none}
+  .av-home-video-note strong{font-size:12px}
+  .av-home-heading-row h2{font-size:46px}
+  .av-home-review{align-items:flex-start;flex-direction:column}
   .av-home-booking-grid{grid-template-columns:1fr}
-  .av-home-booking-card{grid-column:auto}
-  .av-home-support,.av-home-support--accent{border-radius:0;min-height:112px}
-  .av-home-support--accent{border-radius:0 0 16px 16px}
-  .av-category-visual{min-height:360px}
+  .av-home-support,.av-home-support--accent{margin:8px 0 0;border-radius:16px}
+  .av-home-destination-section{padding-top:80px!important;padding-bottom:80px!important}
+  .av-section-heading>div h2{font-size:38px}
+  .av-destination-grid{grid-template-columns:1fr}
+  .av-destination-card--featured{grid-column:auto}
+  .av-destination-card{min-height:420px}
+  .av-category-stage{padding:80px 14px}
+  .av-category-heading h2{font-size:38px}
+  .av-category-visual{min-height:390px}
+  .av-category-caption{left:18px;right:18px;bottom:18px;width:auto;border-radius:14px;background:rgba(5,1,1,.88)}
+  .av-values-grid{grid-template-columns:1fr}
+  .av-value,.av-value:nth-child(3){padding:22px 0;border-left:0;border-top:1px solid var(--av-line)}
+  .av-value:first-child{border-top:0}
+  .av-gallery-grid{grid-template-columns:1fr}
 }
