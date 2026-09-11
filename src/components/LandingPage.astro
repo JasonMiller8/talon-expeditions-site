@@ -5,45 +5,146 @@ import FAQList from './FAQList.astro';
 import type { LandingPage as PageData } from '../data/landing';
 import { images } from '../data/assets';
 
-interface Props { page: PageData; parentLabel:string; parentHref:string }
+interface Props { page: PageData; parentLabel: string; parentHref: string }
 const { page, parentLabel, parentHref } = Astro.props;
-const breadcrumbs=[{label:parentLabel,href:parentHref},{label:page.title,href:Astro.url.pathname}];
-const serviceSchema={
-  '@type':'Service', name:page.title, description:page.description,
-  provider:{'@id':`${Astro.site}#organization`}, areaServed:{'@type':'Place',name':'Worldwide'},
-  url:new URL(Astro.url.pathname,Astro.site).toString()
+const breadcrumbs = [
+  { label: parentLabel, href: parentHref },
+  { label: page.title, href: Astro.url.pathname }
+];
+const siteUrl = Astro.site?.toString() ?? 'https://talonexpeditions.com/';
+const serviceSchema: Record<string, unknown> = {
+  '@type': 'Service',
+  name: page.title,
+  description: page.description,
+  provider: { '@type': 'Organization', name: 'Talon Expeditions' },
+  areaServed: 'Worldwide',
+  url: new URL(Astro.url.pathname, siteUrl).toString()
 };
-const faqSchema={'@type':'FAQPage',mainEntity:page.faqs.map((item)=>({'@type':'Question',name:item.q,acceptedAnswer:{'@type':'Answer',text:item.a}}))};
-const secondary=[images.coast,images.group,images.trekking,images.water,images.culture,images.road];
+const faqSchema: Record<string, unknown> = {
+  '@type': 'FAQPage',
+  mainEntity: page.faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a }
+  }))
+};
+const secondary = [images.coast, images.group, images.trekking, images.water, images.culture, images.road];
 ---
-<BaseLayout title={page.metaTitle} description={page.description} image={page.hero} breadcrumbs={breadcrumbs} schema={[serviceSchema,faqSchema]}>
+<BaseLayout title={page.metaTitle} description={page.description} image={page.hero} breadcrumbs={breadcrumbs} schema={[serviceSchema, faqSchema]}>
   <section class="av-inner-hero" style={`background-image:url('${page.hero}')`}>
-    <div class="shell"><h1>{page.title}</h1><Breadcrumbs items={breadcrumbs}/></div>
+    <div class="shell">
+      <h1>{page.title}</h1>
+      <Breadcrumbs items={breadcrumbs}/>
+    </div>
   </section>
 
-  <section class="av-detail-main"><div class="shell">
-    <div class="av-detail-gallery">
-      <div class="av-detail-gallery-main" style={`background-image:url('${page.hero}')`}></div>
-      <div class="av-detail-gallery-stack"><div style={`background-image:url('${secondary[Math.abs(page.slug.length)%secondary.length]}')`}></div><div style={`background-image:url('${secondary[(page.slug.length+2)%secondary.length]}')`}></div></div>
-    </div>
-    <div class="av-detail-columns">
-      <aside class="av-detail-sidebar">
-        <div class="av-summary-card"><h3>{page.eyebrow}</h3><p>{page.description}</p><div class="av-summary-facts">{page.whoFor.slice(0,4).map((item)=><span>{item}</span>)}</div></div>
-        {page.process.slice(0,3).map((step,index)=><div class="av-day-card"><h3>Stage {index+1}</h3><p><strong>{step.title}</strong></p><p>{step.copy}</p></div>)}
-      </aside>
-      <article class="av-detail-content">
-        <div class="answer-panel"><h2>{page.answerTitle}</h2><p>{page.answer}</p></div>
-        <h2>{page.introTitle}</h2><div class="av-copy">{page.intro.map((p)=><p>{p}</p>)}</div>
-        <h3>Trip highlights and group fit</h3><div class="av-highlight-grid">{page.whoFor.slice(0,6).map((item)=><span>{item}</span>)}</div>
-        <div class="av-inclusion-grid"><div><h3>Planning can include</h3><ul>{page.included.filter((_,i)=>i%2===0).map((item)=><li>{item}</li>)}</ul></div><div><h3>Support can include</h3><ul>{page.included.filter((_,i)=>i%2===1).map((item)=><li>{item}</li>)}</ul></div></div>
-        {page.sections.map((section)=><section class="av-detail-section"><h2>{section.heading}</h2>{section.body.map((p)=><p>{p}</p>)}</section>)}
-        <section class="av-detail-section"><h2>Questions travelers and organizers usually ask</h2><FAQList items={page.faqs} openFirst={true}/></section>
-        <section class="av-detail-section"><h3>Related planning paths</h3><div class="av-detail-related">{page.related.map((item)=><a href={item.href}>{item.label}</a>)}</div></section>
-      </article>
-    </div>
-  </div></section>
+  <section class="av-detail-main">
+    <div class="shell">
+      <div class="av-detail-gallery">
+        <div class="av-detail-gallery-main" style={`background-image:url('${page.hero}')`}></div>
+        <div class="av-detail-gallery-stack">
+          <div style={`background-image:url('${secondary[Math.abs(page.slug.length) % secondary.length]}')`}></div>
+          <div style={`background-image:url('${secondary[(page.slug.length + 2) % secondary.length]}')`}></div>
+        </div>
+      </div>
 
-  <section class="av-proof-band" style={`background-image:url('${images.road}')`}><div class="shell"><div class="av-proof-head"><p class="eyebrow">What good planning protects</p><h2>Clearer decisions before departure create a better group experience on the ground.</h2></div><div class="av-proof-grid"><div class="av-proof-card"><div class="stars">★★★★★</div><h3>Group fit before inventory</h3><p>The itinerary is shaped around the people, pace, purpose, and constraints instead of asking the group to fit a generic package after the fact.</p><small>Private group planning</small></div><div class="av-proof-card"><div class="stars">★★★★★</div><h3>Local specialists where they matter</h3><p>Guides, instructors, destination operators, marine providers, and other specialists can be integrated into one clear operating plan.</p><small>Destination coordination</small></div><div class="av-proof-card"><div class="stars">★★★★★</div><h3>Preparation is part of the journey</h3><p>Documents, equipment, fitness, rooming, arrivals, prerequisites, and final trip information are handled before they become last-minute problems.</p><small>Traveler readiness</small></div></div></div></section>
+      <div class="av-detail-columns">
+        <aside class="av-detail-sidebar">
+          <div class="av-summary-card">
+            <h3>{page.eyebrow}</h3>
+            <p>{page.description}</p>
+            <div class="av-summary-facts">
+              {page.whoFor.slice(0, 4).map((item) => <span>{item}</span>)}
+            </div>
+          </div>
+          {page.process.slice(0, 3).map((step, index) =>
+            <div class="av-day-card">
+              <h3>Stage {index + 1}</h3>
+              <p><strong>{step.title}</strong></p>
+              <p>{step.copy}</p>
+            </div>
+          )}
+        </aside>
 
-  <section class="av-process"><div class="shell av-process-grid"><div class="av-process-visual" style={`background-image:url('${images.planning}')`}><div class="av-process-callout"><h3>Start Your Journey With Us</h3><p>You do not need a finished itinerary. A group, destination, activity, or reason to travel is enough to start.</p></div></div><div class="av-process-copy"><p class="eyebrow">How it works</p><h2>Plan your trip in a few clear steps.</h2><p class="av-process-lead">The planning becomes more specific as the group, destination, suppliers, and traveler requirements become clearer.</p><div class="av-process-topline"><strong>Make a planning appointment</strong><a href="/plan-a-trip/">↗</a></div><div class="av-process-steps">{page.process.slice(0,4).map((step,index)=><div class="av-process-step"><div class="av-process-icon">{['⌖','▣','▤','☀'][index] ?? '•'}</div><div><h3>{step.title}</h3><p>{step.copy}</p></div></div>)}</div></div></div></section>
+        <article class="av-detail-content">
+          <div class="answer-panel">
+            <h2>{page.answerTitle}</h2>
+            <p>{page.answer}</p>
+          </div>
+
+          <h2>{page.introTitle}</h2>
+          <div class="av-copy">{page.intro.map((p) => <p>{p}</p>)}</div>
+
+          <h3>Trip highlights and group fit</h3>
+          <div class="av-highlight-grid">
+            {page.whoFor.slice(0, 6).map((item) => <span>{item}</span>)}
+          </div>
+
+          <div class="av-inclusion-grid">
+            <div>
+              <h3>Planning can include</h3>
+              <ul>{page.included.filter((_, i) => i % 2 === 0).map((item) => <li>{item}</li>)}</ul>
+            </div>
+            <div>
+              <h3>Support can include</h3>
+              <ul>{page.included.filter((_, i) => i % 2 === 1).map((item) => <li>{item}</li>)}</ul>
+            </div>
+          </div>
+
+          {page.sections.map((section) =>
+            <section class="av-detail-section">
+              <h2>{section.heading}</h2>
+              {section.body.map((p) => <p>{p}</p>)}
+            </section>
+          )}
+
+          <section class="av-detail-section">
+            <h2>Questions travelers and organizers usually ask</h2>
+            <FAQList items={page.faqs} openFirst={true}/>
+          </section>
+
+          <section class="av-detail-section">
+            <h3>Related planning paths</h3>
+            <div class="av-detail-related">{page.related.map((item) => <a href={item.href}>{item.label}</a>)}</div>
+          </section>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="av-proof-band" style={`background-image:url('${images.road}')`}>
+    <div class="shell">
+      <div class="av-proof-head">
+        <p class="eyebrow">What good planning protects</p>
+        <h2>Clearer decisions before departure create a better group experience on the ground.</h2>
+      </div>
+      <div class="av-proof-grid">
+        <div class="av-proof-card"><span class="av-proof-label">Planning principle</span><h3>Group fit before inventory</h3><p>The itinerary is shaped around the people, pace, purpose, and constraints instead of asking the group to fit a generic package after the fact.</p><small>Private group planning</small></div>
+        <div class="av-proof-card"><span class="av-proof-label">Operating principle</span><h3>Local specialists where they matter</h3><p>Guides, instructors, destination operators, marine providers, and other specialists can be integrated into one clear operating plan.</p><small>Destination coordination</small></div>
+        <div class="av-proof-card"><span class="av-proof-label">Preparation principle</span><h3>Preparation is part of the journey</h3><p>Documents, equipment, fitness, rooming, arrivals, prerequisites, and final trip information are handled before they become last-minute problems.</p><small>Traveler readiness</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="av-process">
+    <div class="shell av-process-grid">
+      <div class="av-process-visual" style={`background-image:url('${images.planning}')`}>
+        <div class="av-process-callout"><h3>Start Your Journey With Us</h3><p>You do not need a finished itinerary. A group, destination, activity, or reason to travel is enough to start.</p></div>
+      </div>
+      <div class="av-process-copy">
+        <p class="eyebrow">How it works</p>
+        <h2>Plan your trip in a few clear steps.</h2>
+        <p class="av-process-lead">The planning becomes more specific as the group, destination, suppliers, and traveler requirements become clearer.</p>
+        <div class="av-process-topline"><strong>Make a planning appointment</strong><a href="/plan-a-trip/" aria-label="Plan a trip">↗</a></div>
+        <div class="av-process-steps">
+          {page.process.slice(0, 4).map((step, index) =>
+            <div class="av-process-step">
+              <div class="av-process-icon">{['⌖', '▣', '▤', '☀'][index] ?? '•'}</div>
+              <div><h3>{step.title}</h3><p>{step.copy}</p></div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
