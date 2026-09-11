@@ -3,7 +3,7 @@ interface Props { variant?: 'light' | 'dark'; compact?: boolean }
 const { compact=false } = Astro.props;
 ---
 <a class:list={['brand-logo', compact && 'brand-logo--compact']} href="/" aria-label="Talon Expeditions home">
-  <img src="/assets/talon-expeditions-logo-light.png" alt="Talon Expeditions" width="900" height="267" />
+  <img src="/assets/talon-expeditions-logo-light.png?v=20260911" alt="Talon Expeditions" width="900" height="267" loading="eager" decoding="async" />
 </a>
 <style>
   .brand-logo{display:inline-flex;align-items:center;text-decoration:none;width:min(245px,28vw)}
