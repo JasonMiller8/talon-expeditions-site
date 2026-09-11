@@ -8,39 +8,65 @@ const gallery=[
   ['Trekking & mountain travel',images.trekking],['Dive & marine travel',images.water],['Wildlife & nature',images.wildlife],
   ['Culture & cities',images.culture],['Coast & islands',images.coast],['Active rest',images.lake]
 ];
+const categories=[
+  {label:'Private Groups',image:images.heroAlt,title:'Travel built around the people going.',copy:'Shape the route, pace, comfort, activities and support around the actual group rather than a fixed catalog departure.',href:'/private-group-travel/'},
+  {label:'Learn-To Travel',image:images.surf,title:'Travel with a skill at the center.',copy:'Build the trip around instruction, progression, equipment, recovery time and the practical needs of beginners or mixed-experience groups.',href:'/learn-to-trips/'},
+  {label:'Trekking & Active',image:images.trekking,title:'Move through the destination.',copy:'Hiking, trekking and active journeys designed around realistic pace, preparation, terrain, comfort and group ability.',href:'/trekking-active-travel/'},
+  {label:'Culture & Cruise',image:images.culture,title:'See more without over-scheduling it.',copy:'Hosted cultural journeys and cruise-based trips with enough structure to feel cohesive and enough space to enjoy the place.',href:'/cultural-cruise-travel/'},
+  {label:'Wildlife & Nature',image:images.wildlife,title:'Put the environment at the center.',copy:'Nature-led itineraries where season, location, local expertise and responsible access determine the shape of the trip.',href:'/experiences/'},
+  {label:'Active Rest',image:images.lake,title:'Be active without making every day a test.',copy:'Comfort-forward journeys that mix movement, scenery, food, culture and recovery in a more relaxed rhythm.',href:'/experiences/'}
+];
 ---
-<BaseLayout title="Talon Expeditions | Private Group, Active & Experience-Led Travel" description="Talon Expeditions plans private group travel, active journeys, learn-to trips, trekking, cultural travel, cruises, and experience-led journeys worldwide." image={images.hero} schema={{'@type':'TravelAgency',name:'Talon Expeditions',url:Astro.site?.toString(),areaServed:'Worldwide'}}>
-  <section class="av-home-hero" style={`background-image:url('${images.hero}')`}>
-    <div class="av-home-hero-inner">
-      <div class="av-home-intro">
-        <h1>One Journey at a Time</h1>
-        <p>Travel built around the people going, the experience they want, and the support needed to make the whole trip work.</p>
-        <div class="av-home-review"><div class="av-avatar-stack"><span style={`background-image:url('${images.group}')`}></span><span style={`background-image:url('${images.coastalTraveler}')`}></span><span style={`background-image:url('${images.galleryTravel}')`}></span></div><span>Private groups, clubs, communities & teams</span></div>
+<BaseLayout title="Talon Expeditions | Private Group, Active & Experience-Led Travel" description="Talon Expeditions plans private group travel, active journeys, learn-to trips, trekking, cultural travel, cruises, and experience-led journeys worldwide." image={images.heroAlt} schema={{'@type':'TravelAgency',name:'Talon Expeditions',url:Astro.site?.toString(),areaServed:'Worldwide'}}>
+  <section class="av-home-hero" style={`background-image:url('${images.heroAlt}')`}>
+    <div class="shell av-home-hero-stack">
+      <div class="av-home-review-row">
+        <div class="av-home-video-note"><span class="av-play">▶</span><div><strong>See how supported group travel works</strong><small>Planning, preparation and destination coordination</small></div></div>
       </div>
-      <div class="av-home-hero-right">
-        <div class="av-home-video-note"><span class="av-play">▶</span><div><strong>Travel shaped around your group</strong><small>Active, skill-based, cultural and hosted journeys</small></div></div>
-        <div class="av-home-tagcloud"><span>Private Groups</span><span>Active Travel</span><span>Learn-To Trips</span><span>Culture & Cruise</span><span>Worldwide Planning</span></div>
-        <h2>Explore The World<br/>with Talon</h2>
+      <div class="av-home-middle-row">
+        <div class="av-home-intro">
+          <h1>One Journey at a Time</h1>
+          <p>Travel built around the people going, the experience they want, and the support needed to make the whole trip work.</p>
+          <div class="av-home-review"><div class="av-avatar-stack"><span style={`background-image:url('${images.group}')`}></span><span style={`background-image:url('${images.coastalTraveler}')`}></span><span style={`background-image:url('${images.galleryTravel}')`}></span></div><span>Private groups, clubs, communities & teams</span></div>
+        </div>
+        <div class="av-home-tagcloud" aria-label="Travel styles"><span>Private Groups</span><span>Adventure</span><span>Learn-To</span><span>Active Travel</span><span>Culture</span><span>Cruise</span><span>Worldwide</span></div>
       </div>
+      <div class="av-home-heading-row"><h2>Explore The World<br/>with Talon</h2></div>
     </div>
   </section>
 
-  <div class="av-home-booking-wrap"><div class="av-home-booking-grid">
-    <form class="av-home-booking-card" action="/plan-a-trip/" method="get"><h2>What are you trying to plan?</h2><div class="planner-grid"><div class="field"><label for="home-group">Group type</label><select id="home-group" name="group"><option>Club or community</option><option>Private group / friends</option><option>Business or team</option><option>Wellness community</option><option>Individual traveler</option></select></div><div class="field"><label for="home-style">Trip style</label><select id="home-style" name="style"><option>Active / trekking</option><option>Learn-to / skill based</option><option>Culture / cruise</option><option>Wildlife / nature</option><option>Not sure yet</option></select></div><button class="button" type="submit">Start Planning</button></div></form>
-    <div class="av-home-support"><h3>Organizer Support</h3><p>Clearer planning, participant information, preparation, and fewer disconnected moving parts.</p></div>
-    <div class="av-home-support av-home-support--accent"><h3>Easy to Start</h3><p>You do not need a finished itinerary. A group, destination, activity, or season is enough.</p></div>
-  </div></div>
+  <section class="av-home-booking-wrap" aria-label="Start planning">
+    <div class="shell av-home-booking-grid">
+      <form class="av-home-booking-card" action="/plan-a-trip/" method="get">
+        <div class="planner-grid">
+          <div class="field"><label for="home-destination">Destination idea</label><select id="home-destination" name="destination"><option>Not sure yet</option><option>Europe & Mediterranean</option><option>Mountains & trekking regions</option><option>Coast, islands & marine</option><option>Culture & city-led travel</option><option>Tell us another destination</option></select></div>
+          <div class="field"><label for="home-style">Trip style</label><select id="home-style" name="style"><option>Private group travel</option><option>Active / trekking</option><option>Learn-to / skill based</option><option>Culture / cruise</option><option>Wildlife / nature</option><option>Active rest</option></select></div>
+          <div class="field"><label for="home-timing">When do you want to travel?</label><select id="home-timing" name="timing"><option>Dates are flexible</option><option>Within 3 months</option><option>3–6 months</option><option>6–12 months</option><option>More than a year away</option></select></div>
+          <div class="field"><label for="home-group">Group size</label><select id="home-group" name="group"><option>Still estimating</option><option>2–5 travelers</option><option>6–12 travelers</option><option>13–24 travelers</option><option>25+ travelers</option></select></div>
+          <button class="button" type="submit">Start Planning</button>
+        </div>
+      </form>
+      <div class="av-home-support"><div class="av-support-icon">24</div><div><h3>Planning Support</h3><p>Clearer decisions, participant information, preparation, and fewer disconnected moving parts.</p></div></div>
+      <div class="av-home-support av-home-support--accent"><div class="av-support-icon">↗</div><div><h3>Easy to Start</h3><p>You do not need a finished itinerary. A group, destination, activity, or season is enough.</p></div></div>
+    </div>
+  </section>
 
-  <section class="section av-home-destination-section"><div class="shell"><div class="av-section-heading"><div><p class="eyebrow">Destinations</p><h2>Explore Popular Travel Styles</h2></div><p>Start with the kind of journey your group wants. The destination, route, pace, and support model can be shaped around it.</p><a class="button button-small" href="/experiences/">Browse all Experiences</a></div><div class="av-destination-grid">{coreExperienceCards.slice(0,3).map((item,index)=><a class="av-destination-card" href={item.href} style={`background-image:url('${item.image}')`}><div class="av-destination-card-top"><span>{item.eyebrow}</span><span class="av-card-arrow">↗</span></div><h3>{item.title}</h3><p>{item.copy}</p><div class="av-destination-tags"><span>Private groups</span><span>Worldwide</span><span>{index===0?'Custom':index===1?'Skill-based':'Active'}</span></div></a>)}</div></div></section>
+  <section class="section av-home-destination-section"><div class="shell">
+    <div class="av-section-heading"><div><p class="eyebrow">Destinations</p><h2>Explore Popular Travel Styles</h2></div><p>Start with the kind of journey your group wants. The destination, route, pace, and support model can be shaped around it.</p><a class="button button-small" href="/experiences/">Browse all Experiences</a></div>
+    <div class="av-destination-grid">{coreExperienceCards.slice(0,3).map((item,index)=><a class:list={['av-destination-card',index===0&&'av-destination-card--featured']} href={item.href} style={`background-image:url('${item.image}')`}><div class="av-destination-card-top"><span>{item.eyebrow}</span><span class="av-card-arrow">↗</span></div><div class="av-destination-card-content"><h3>{item.title}</h3><p>{item.copy}</p><div class="av-destination-tags"><span>Private groups</span><span>Worldwide</span><span>{index===0?'Custom':index===1?'Skill-based':'Active'}</span></div></div></a>)}</div>
+  </div></section>
 
   <section class="av-category-stage"><div class="shell">
     <div class="av-category-top"><p class="av-category-description">Find the experience that best matches why your group wants to travel, from active journeys and skill-based trips to culture, wildlife and more relaxed exploration.</p><div class="av-category-heading"><p class="eyebrow">Tour Categories</p><h2>Choose Your Travel Style</h2></div></div>
-    <div class="av-category-body"><ul class="av-category-menu"><li>Private Groups</li><li>Learn-To Travel</li><li>Trekking & Active</li><li>Culture & Cruise</li><li>Wildlife & Nature</li><li>Active Rest</li></ul><div class="av-category-visual" style={`background-image:url('${images.trekking}')`}><div class="av-category-caption"><h3>Travel with a reason to go.</h3><p>Move through landscapes, learn something new, spend time with your community, or simply experience a place more intentionally.</p><a class="button button-small" href="/experiences/">Explore Experiences</a></div></div></div>
+    <div class="av-category-body">
+      <div class="av-category-tabs" role="tablist" aria-label="Travel styles">{categories.map((item,index)=><button type="button" role="tab" aria-selected={index===0?'true':'false'} data-category-tab data-image={item.image} data-title={item.title} data-copy={item.copy} data-href={item.href}>{item.label}</button>)}</div>
+      <div class="av-category-visual" data-category-visual style={`background-image:url('${categories[0].image}')`}><div class="av-category-heart" aria-hidden="true">♥</div><div class="av-category-caption"><h3 data-category-title>{categories[0].title}</h3><p data-category-copy>{categories[0].copy}</p><a class="text-arrow" data-category-link href={categories[0].href}>View this travel style →</a></div></div>
+    </div>
   </div></section>
 
   <section class="section"><div class="shell"><div class="av-values-intro"><div><p class="eyebrow">Why Choose Talon</p><h2 class="section-title">We craft travel around the group, not around generic inventory.</h2></div><p>Group travel works better when the people, purpose, activity level, comfort, and organizer workload are clear before the itinerary hardens.</p></div><div class="av-values-grid">{trustSignals.map((item,index)=><div class="av-value"><div class="av-value-badge"><h3>{item.title}</h3><span>0{index+1}</span></div><p>{item.copy}</p></div>)}</div></div></section>
 
-  <section class="section-tight"><div class="shell"><div class="av-gallery-title"><p class="eyebrow">Experience Gallery</p><h2 class="section-title">Travel that gives the group something to remember doing together.</h2></div><div class="av-gallery-grid">{gallery.map(([label,image])=><a href="/gallery/" class="av-gallery-tile" style={`background-image:url('${image}')`}><span>{label}</span></a>)}</div></div></section>
+  <section class="section-tight"><div class="shell"><div class="av-gallery-title"><h2>Explore our travelers’ shared moments and the kinds of experiences we can build around a group.</h2></div><div class="av-gallery-grid">{gallery.map(([label,image])=><a href="/gallery/" class="av-gallery-tile" style={`background-image:url('${image}')`}><span>{label}</span><i aria-hidden="true">♡</i></a>)}</div><div class="av-gallery-more">More travel ideas and visual references are collected in the <a href="/gallery/">Talon gallery →</a></div></div></section>
 
   <section class="av-proof-band" style={`background-image:url('${images.road}')`}><div class="shell"><div class="av-proof-head"><p class="eyebrow">How we work</p><h2>Professional behind the scenes. Personal to the group.</h2></div><div class="av-proof-grid"><div class="av-proof-card"><h3>Clear scope</h3><p>Travelers should understand what is planned, what is included, what requires local specialists, and what remains their responsibility.</p><small>Planning clarity</small></div><div class="av-proof-card"><h3>Realistic preparation</h3><p>Activity, equipment, documents, fitness, rooming, and arrival requirements are easier to solve before they become last-minute problems.</p><small>Traveler readiness</small></div><div class="av-proof-card"><h3>Group-first decisions</h3><p>The trip is shaped around the actual people rather than an imaginary average traveler or a fixed catalog departure.</p><small>Organizer support</small></div></div></div></section>
 
@@ -49,4 +75,20 @@ const gallery=[
   <section class="av-newsletter-hero" style={`background-image:url('${images.planning}')`}><div class="shell av-newsletter-grid"><div class="av-newsletter-card"><p class="eyebrow">Join Our Travel Circle</p><h2>Planning ideas, trip formats, and new departures.</h2><p>Follow the planning library now. Email updates can be added when the subscription system is live.</p><a class="button button-small" href="/resources/">Browse Travel Guides</a></div><div class="av-stat-row"><div class="av-stat"><strong>Private</strong><span>Group-first planning</span></div><div class="av-stat"><strong>Global</strong><span>Worldwide destinations</span></div><div class="av-stat"><strong>Supported</strong><span>From idea to departure</span></div></div></div></section>
 
   <section class="section"><div class="shell"><div class="av-blog-heading"><p class="eyebrow">Travel Tips & Stories</p><h2>Latest Planning Guides & Travel Inspiration</h2></div><div class="av-blog-grid">{featured.map(article=><a class="av-blog-card" href={`/guides/${article.slug}/`}><div class="av-blog-image" style={`background-image:url('${article.image}')`}></div><div class="av-blog-body"><span class="av-blog-meta">{article.category}</span><h3>{article.title}</h3><p>{article.description}</p><span class="text-arrow">Read More →</span></div></a>)}</div></div></section>
+
+  <script>
+    const tabs=[...document.querySelectorAll('[data-category-tab]')];
+    const visual=document.querySelector('[data-category-visual]');
+    const title=document.querySelector('[data-category-title]');
+    const copy=document.querySelector('[data-category-copy]');
+    const link=document.querySelector('[data-category-link]');
+    tabs.forEach((tab)=>tab.addEventListener('click',()=>{
+      tabs.forEach((item)=>item.setAttribute('aria-selected','false'));
+      tab.setAttribute('aria-selected','true');
+      if(visual instanceof HTMLElement) visual.style.backgroundImage=`url('${tab.getAttribute('data-image') ?? ''}')`;
+      if(title) title.textContent=tab.getAttribute('data-title') ?? '';
+      if(copy) copy.textContent=tab.getAttribute('data-copy') ?? '';
+      if(link instanceof HTMLAnchorElement) link.href=tab.getAttribute('data-href') ?? '/experiences/';
+    }));
+  </script>
 </BaseLayout>
