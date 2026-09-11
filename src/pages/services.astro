@@ -2,19 +2,90 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { images } from '../data/assets';
-const breadcrumbs=[{label:'Our Services',href:'/services/'}];
-const services=[
-  ['Trip Strategy & Design','Define the group, purpose, destination options, route, pace, duration, comfort, and support level before the itinerary hardens.','⌖'],
-  ['Air & Arrival Planning','Coordinate or structure flights, common arrival windows, airport transfers, and the practical handoff into the trip.','✈'],
-  ['Accommodation & Rooming','Match hotels, resorts, lodges, cabins, huts, or other lodging to the group and manage rooming assumptions.','⌂'],
-  ['Ground Transport','Private vehicles, rail, ferries, local transfers, luggage movement, and the connections between each travel day.','→'],
-  ['Activities & Local Operators','Coordinate destination specialists, guides, instructors, excursions, tickets, and activity suppliers appropriate to the itinerary.','△'],
-  ['Organizer & Traveler Support','Help leaders structure trip information, participant questions, readiness, and the milestones that move a group toward departure.','◎']
+
+const breadcrumbs = [{ label: 'Our Services', href: '/services/' }];
+const services = [
+  ['Trip Strategy & Design', 'Define the group, purpose, destination options, route, pace, duration, comfort, and support level before the itinerary hardens.', '⌖'],
+  ['Air & Arrival Planning', 'Coordinate or structure flights, common arrival windows, airport transfers, and the practical handoff into the trip.', '✈'],
+  ['Accommodation & Rooming', 'Match hotels, resorts, lodges, cabins, huts, or other lodging to the group and manage rooming assumptions.', '⌂'],
+  ['Ground Transport', 'Private vehicles, rail, ferries, local transfers, luggage movement, and the connections between each travel day.', '→'],
+  ['Activities & Local Operators', 'Coordinate destination specialists, guides, instructors, excursions, tickets, and activity suppliers appropriate to the itinerary.', '△'],
+  ['Organizer & Traveler Support', 'Help leaders structure trip information, participant questions, readiness, and the milestones that move a group toward departure.', '◎']
 ];
+const serviceSchema: Record<string, unknown> = {
+  '@type': 'Service',
+  name: 'Group Travel Planning Services',
+  provider: { '@type': 'Organization', name: 'Talon Expeditions' },
+  areaServed: 'Worldwide'
+};
 ---
-<BaseLayout title="Group Travel Planning Services | Talon Expeditions" description="Trip design, flights, accommodation, transport, activities, organizer support, traveler readiness, and worldwide group travel coordination from Talon Expeditions." image={images.train} breadcrumbs={breadcrumbs} schema={{'@type':'Service',name:'Group Travel Planning Services',provider:{'@id':`${Astro.site}#organization`},areaServed:{'@type':'Place',name':'Worldwide'}}}>
-  <section class="av-inner-hero" style={`background-image:url('${images.train}')`}><div class="shell"><h1>Our Services</h1><Breadcrumbs items={breadcrumbs}/></div></section>
-  <section class="section"><div class="shell"><div class="av-services-intro"><p class="eyebrow">What We Do</p><h2>Travel Services Built Around the Whole Group Journey</h2><p>Not every trip needs every service. Talon Expeditions connects the parts that matter for the actual itinerary so the organizer is not left managing a collection of unrelated bookings.</p></div><div class="av-service-grid">{services.map((item)=><div class="av-service-card"><div class="av-service-card-icon">{item[2]}</div><h3>{item[0]}</h3><p>{item[1]}</p><a href="/plan-a-trip/">Learn More →</a></div>)}</div></div></section>
-  <section class="av-proof-band" style={`background-image:url('${images.coast}')`}><div class="shell"><div class="av-proof-head"><p class="eyebrow">Supported Travel</p><h2>Clear responsibilities are more useful than vague promises.</h2></div><div class="av-proof-grid"><div class="av-proof-card"><div class="stars">★★★★★</div><h3>Planned by Talon</h3><p>Trip design, organizer coordination, participant information, and the overall travel structure can be led through one planning relationship.</p><small>Planning & coordination</small></div><div class="av-proof-card"><div class="stars">★★★★★</div><h3>Delivered with specialists</h3><p>Destination guiding, instruction, marine activities, mountain programs, cruises, or local operations may be provided by appropriate local specialists.</p><small>Local capability</small></div><div class="av-proof-card"><div class="stars">★★★★★</div><h3>Prepared before departure</h3><p>Documents, equipment, fitness, activity prerequisites, rooming, arrivals, and final information are treated as part of the travel service.</p><small>Traveler readiness</small></div></div></div></section>
-  <section class="av-process"><div class="shell av-process-grid"><div class="av-process-visual" style={`background-image:url('${images.packing}')`}><div class="av-process-callout"><h3>Start Your Journey With Us</h3><p>Use as much planning support as the trip actually needs.</p></div></div><div class="av-process-copy"><p class="eyebrow">How it Works</p><h2>One planning relationship, connected moving parts.</h2><p class="av-process-lead">The work shifts as the trip develops from concept and viability to reservations, participant information, preparation, and departure.</p><div class="av-process-topline"><strong>Make an Appointment Now</strong><a href="/plan-a-trip/">↗</a></div><div class="av-process-steps"><div class="av-process-step"><div class="av-process-icon">⌖</div><div><h3>Define the Trip</h3><p>Clarify the group, objective, timing, activity, comfort, and constraints.</p></div></div><div class="av-process-step"><div class="av-process-icon">▣</div><div><h3>Build the Travel Structure</h3><p>Connect route, accommodation, transport, activities, suppliers, and likely cost.</p></div></div><div class="av-process-step"><div class="av-process-icon">▤</div><div><h3>Prepare the Group</h3><p>Turn the plan into useful participant information and clear decisions.</p></div></div><div class="av-process-step"><div class="av-process-icon">☀</div><div><h3>Coordinate Departure</h3><p>Resolve final rooming, arrivals, documents, equipment, and support contacts.</p></div></div></div></div></div><div class="av-partner-strip"><span>Trip Design</span><span>Air</span><span>Accommodation</span><span>Activities</span><span>Traveler Support</span></div></section>
+<BaseLayout
+  title="Group Travel Planning Services | Talon Expeditions"
+  description="Trip design, flights, accommodation, transport, activities, organizer support, traveler readiness, and worldwide group travel coordination from Talon Expeditions."
+  image={images.train}
+  breadcrumbs={breadcrumbs}
+  schema={serviceSchema}
+>
+  <section class="av-inner-hero" style={`background-image:url('${images.train}')`}>
+    <div class="shell">
+      <h1>Our Services</h1>
+      <Breadcrumbs items={breadcrumbs}/>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="av-services-intro">
+        <p class="eyebrow">What We Do</p>
+        <h2>Travel Services Built Around the Whole Group Journey</h2>
+        <p>Not every trip needs every service. Talon Expeditions connects the parts that matter for the actual itinerary so the organizer is not left managing a collection of unrelated bookings.</p>
+      </div>
+
+      <div class="av-service-grid">
+        {services.map((item) =>
+          <div class="av-service-card">
+            <div class="av-service-card-icon">{item[2]}</div>
+            <h3>{item[0]}</h3>
+            <p>{item[1]}</p>
+            <a href="/plan-a-trip/">Learn More <span aria-hidden="true">→</span></a>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="av-proof-band" style={`background-image:url('${images.coast}')`}>
+    <div class="shell">
+      <div class="av-proof-head">
+        <p class="eyebrow">Supported Travel</p>
+        <h2>Clear responsibilities are more useful than vague promises.</h2>
+      </div>
+      <div class="av-proof-grid">
+        <div class="av-proof-card"><span class="av-proof-label">Planning</span><h3>Planned by Talon</h3><p>Trip design, organizer coordination, participant information, and the overall travel structure can be led through one planning relationship.</p><small>Planning & coordination</small></div>
+        <div class="av-proof-card"><span class="av-proof-label">Delivery</span><h3>Delivered with specialists</h3><p>Destination guiding, instruction, marine activities, mountain programs, cruises, or local operations may be provided by appropriate local specialists.</p><small>Local capability</small></div>
+        <div class="av-proof-card"><span class="av-proof-label">Readiness</span><h3>Prepared before departure</h3><p>Documents, equipment, fitness, activity prerequisites, rooming, arrivals, and final information are treated as part of the travel service.</p><small>Traveler readiness</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="av-process">
+    <div class="shell av-process-grid">
+      <div class="av-process-visual" style={`background-image:url('${images.packing}')`}>
+        <div class="av-process-callout"><h3>Start Your Journey With Us</h3><p>Use as much planning support as the trip actually needs.</p></div>
+      </div>
+      <div class="av-process-copy">
+        <p class="eyebrow">How it Works</p>
+        <h2>One planning relationship, connected moving parts.</h2>
+        <p class="av-process-lead">The work shifts as the trip develops from concept and viability to reservations, participant information, preparation, and departure.</p>
+        <div class="av-process-topline"><strong>Make an Appointment Now</strong><a href="/plan-a-trip/" aria-label="Plan a trip">↗</a></div>
+        <div class="av-process-steps">
+          <div class="av-process-step"><div class="av-process-icon">⌖</div><div><h3>Define the Trip</h3><p>Clarify the group, objective, timing, activity, comfort, and constraints.</p></div></div>
+          <div class="av-process-step"><div class="av-process-icon">▣</div><div><h3>Build the Travel Structure</h3><p>Connect route, accommodation, transport, activities, suppliers, and likely cost.</p></div></div>
+          <div class="av-process-step"><div class="av-process-icon">▤</div><div><h3>Prepare the Group</h3><p>Turn the plan into useful participant information and clear decisions.</p></div></div>
+          <div class="av-process-step"><div class="av-process-icon">☀</div><div><h3>Coordinate Departure</h3><p>Resolve final rooming, arrivals, documents, equipment, and support contacts.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="av-partner-strip"><span>Trip Design</span><span>Air</span><span>Accommodation</span><span>Activities</span><span>Traveler Support</span></div>
+  </section>
 </BaseLayout>
